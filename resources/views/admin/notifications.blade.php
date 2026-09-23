@@ -16,7 +16,7 @@
                 Peringatan Dini Masa Berlaku Dokumen Kerjasama
             </h2>
             <p class="text-xs text-slate-300 font-normal leading-relaxed">
-                Sistem secara otomatis memantau seluruh tanggal berakhir dokumen MoU, MoA, dan IA. Notifikasi pengingat otomatis dikirimkan ke email Pengelola Kerjasama 90, 60, dan 30 hari sebelum tanggal kedaluwarsa.
+                Sistem secara otomatis memantau seluruh tanggal berakhir dokumen MoU, MoA, dan IA untuk memudahkan pemantauan dan pembaruan dokumen secara tepat waktu.
             </p>
         </div>
     </div>
@@ -61,19 +61,12 @@
                             </p>
                         </div>
 
-                        <!-- Manual Reminder Email Action -->
+                        <!-- Action -->
                         <div class="flex items-center gap-2 flex-shrink-0">
-                            <a href="{{ route('admin.cooperations.edit', $item->id) }}" class="px-3.5 py-2 text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition-all">
-                                Update / Perpanjang
+                            <a href="{{ route('admin.cooperations.edit', $item->id) }}" class="px-4 py-2 text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-xl shadow-sm transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span>Perbarui / Edit Dokumen</span>
                             </a>
-
-                            <form action="{{ route('admin.notifications.sendReminder', $item->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-xl shadow-md transition-all flex items-center gap-1.5">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                    <span>Kirim Email Pengingat</span>
-                                </button>
-                            </form>
                         </div>
 
                     </div>
