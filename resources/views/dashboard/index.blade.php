@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-graduation-cap me-1"></i> Borang Akreditasi LAM-PTKes / BAN-PT
             </span>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
-                Visualisasi Data & Rekapitulasi Akreditasi
+                Laporan & visualisasi data
             </h2>
             <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
                 Unduh rekapitulasi data kerjasama institusi dan prodi secara cepat sesuai format borang akreditasi nasional dan internasional STIKes Panti Waluya Malang.
