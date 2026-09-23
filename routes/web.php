@@ -13,9 +13,9 @@ Route::get('/cooperations/export-pdf', [PublicCatalogController::class, 'exportP
 Route::get('/cooperations/{id}/detail', [PublicCatalogController::class, 'show'])->name('public.show');
 Route::get('/cooperations/{id}/download', [PublicCatalogController::class, 'download'])->name('public.download');
 
-// 2. Authentication Routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+// 2. Authentication Routes (Custom Security Slug: /sugar)
+Route::get('/sugar', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/sugar', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // 3. Admin & Leadership Authenticated Routes

@@ -142,11 +142,6 @@
                                 <span>Panel {{ Auth::user()->role === 'pimpinan' ? 'Pimpinan' : 'Admin' }}</span>
                             </a>
                         </div>
-                    @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 rounded-xl transition-all shadow-sm ms-2">
-                            <i class="fa-solid fa-lock text-slate-400"></i>
-                            <span>Login Pengelola</span>
-                        </a>
                     @endauth
                 </div>
 
@@ -202,20 +197,15 @@
                 @endif
             @endforeach
 
-            <!-- Login Action for Mobile -->
-            <div class="pt-3 border-t border-slate-200">
-                @auth
+            <!-- Login Action for Mobile (Authenticated Users Only) -->
+            @auth
+                <div class="pt-3 border-t border-slate-200">
                     <a href="{{ Auth::user()->role === 'pimpinan' ? route('dashboard.index') : route('admin.cooperations.index') }}" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-xl shadow-md transition-all">
                         <i class="fa-solid fa-gauge-high"></i>
                         <span>Panel {{ Auth::user()->role === 'pimpinan' ? 'Pimpinan' : 'Admin' }}</span>
                     </a>
-                @else
-                    <a href="{{ route('login') }}" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-semibold text-slate-700 border border-slate-300 bg-white hover:bg-slate-50 rounded-xl transition-all shadow-sm">
-                        <i class="fa-solid fa-lock text-slate-400"></i>
-                        <span>Login Pengelola</span>
-                    </a>
-                @endauth
-            </div>
+                </div>
+            @endauth
 
         </div>
 
@@ -268,14 +258,10 @@
                 </div>
 
                 <div>
-                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Akses Terbatas</h4>
-                    <p class="text-xs text-slate-400 mb-3">
-                        Pintu masuk portal khusus bagi Tim Pengelola Kerjasama dan Pimpinan STIKes Panti Waluya Malang.
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Layanan LPPM & Humas</h4>
+                    <p class="text-xs text-slate-400 mb-3 leading-relaxed">
+                        Layanan Pengelolaan Kerja Sama Dalam Negeri dan Luar Negeri Unit LPPM & Humas STIKes Panti Waluya Malang.
                     </p>
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-xs font-bold text-stikes-400 hover:text-stikes-300 transition-colors">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        <span>Masuk ke Dashboard Sistem &rarr;</span>
-                    </a>
                 </div>
             </div>
 
