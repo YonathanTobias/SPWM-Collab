@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Panel Kelola') - SIM-KERJASAMA STIKes Panti Waluya</title>
+    <title>@yield('title', 'Panel Kelola') - SPWM-Collab STIKes Panti Waluya</title>
     
     <!-- Custom Favicon -->
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
@@ -69,7 +69,7 @@
                         <i class="fa-solid fa-file-signature"></i>
                     </div>
                     <div>
-                        <h1 class="font-extrabold text-sm text-white tracking-tight">SIM-KERJASAMA</h1>
+                        <h1 class="font-extrabold text-sm text-white tracking-tight">SPWM-Collab</h1>
                         <p class="text-[10px] text-slate-400 font-medium">STIKes Panti Waluya</p>
                     </div>
                 </a>

@@ -59,7 +59,7 @@
                     <i class="fa-solid fa-user-shield"></i>
                 </div>
                 <h2 class="text-2xl font-extrabold text-white tracking-tight">Portal Pengelola System</h2>
-                <p class="text-xs text-slate-300 font-medium mt-1">SIM-KERJASAMA STIKes Panti Waluya Malang</p>
+                <p class="text-xs text-slate-300 font-medium mt-1">SPWM-Collab STIKes Panti Waluya Malang</p>
             </div>
 
             <!-- Login Form -->
