@@ -90,7 +90,7 @@
                         <div class="bg-slate-100 p-1 rounded-xl flex items-center gap-1 border border-slate-200 me-2">
                             <button type="button" 
                                     @click="viewMode = 'grid'; localStorage.setItem('sim_view_mode', 'grid')" 
-                                    :class="viewMode === 'grid' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
+                                    :class="viewMode !== 'table' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
                                     class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
                                     title="Tampilan Mode Grid Kartu">
                                 <i class="fa-solid fa-table-cells-large"></i>
@@ -173,7 +173,7 @@
         @if($cooperations->count() > 0)
             
             <!-- OPTION 1: Grid Cards View -->
-            <div x-show="viewMode === 'grid'" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div x-show="viewMode !== 'table'" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($cooperations as $item)
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/90 hover:border-stikes-400 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                         <div>

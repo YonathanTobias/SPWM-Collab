@@ -46,13 +46,13 @@
         }
     </script>
     
+    <!-- External Dedicated Custom CSS & JS -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('js/main.js') }}"></script>
+    
     <!-- Alpine JS & FontAwesome/Lucide Icons -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- External Dedicated Custom CSS & JS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script defer src="{{ asset('js/main.js') }}"></script>
 </head>
 <body class="h-full font-sans text-slate-800 antialiased flex flex-col selection:bg-stikes-500 selection:text-white">
 

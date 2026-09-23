@@ -4,7 +4,7 @@
  */
 
 // Public Catalog Alpine Component
-function publicCatalog() {
+window.publicCatalog = function publicCatalog() {
     return {
         modalOpen: false,
         loading: false,
@@ -25,4 +25,11 @@ function publicCatalog() {
                 });
         }
     };
-}
+};
+
+// Register component for Alpine initialization
+document.addEventListener('alpine:init', () => {
+    if (typeof Alpine !== 'undefined') {
+        Alpine.data('publicCatalog', window.publicCatalog);
+    }
+});
