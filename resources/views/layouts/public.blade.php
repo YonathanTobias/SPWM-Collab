@@ -50,14 +50,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <style>
-        [x-cloak] { display: none !important; }
-        .glass-header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-    </style>
+    <!-- External Dedicated Custom CSS & JS -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script defer src="{{ asset('js/main.js') }}"></script>
 </head>
 <body class="h-full font-sans text-slate-800 antialiased flex flex-col selection:bg-stikes-500 selection:text-white">
 

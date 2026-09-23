@@ -437,30 +437,3 @@
 
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    function publicCatalog() {
-        return {
-            modalOpen: false,
-            loading: false,
-            cooperation: null,
-            viewMode: localStorage.getItem('sim_view_mode') || 'grid',
-            openModal(id) {
-                this.modalOpen = true;
-                this.loading = true;
-                fetch(`/cooperations/${id}/detail`)
-                    .then(res => res.json())
-                    .then(data => {
-                        this.cooperation = data;
-                        this.loading = false;
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        this.loading = false;
-                    });
-            }
-        }
-    }
-</script>
-@endpush
