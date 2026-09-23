@@ -258,10 +258,16 @@
                 </div>
 
                 <div>
-                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Layanan LPPM & Humas</h4>
-                    <p class="text-xs text-slate-400 mb-3 leading-relaxed">
-                        Layanan Pengelolaan Kerja Sama Dalam Negeri dan Luar Negeri Unit LPPM & Humas STIKes Panti Waluya Malang.
-                    </p>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Lokasi Kampus (Google Maps)</h4>
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-md bg-slate-800">
+                        <iframe src="https://maps.google.com/maps?q=STIKes+Panti+Waluya+Malang,+Jl.+Yulius+Usman+No.62,+Kasin,+Kec.+Klojen,+Kota+Malang,+Jawa+Timur+65117&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                width="100%" 
+                                height="130" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                class="w-full h-32 rounded-2xl"></iframe>
+                    </div>
                 </div>
             </div>
 
