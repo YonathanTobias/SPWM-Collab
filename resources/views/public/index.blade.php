@@ -86,21 +86,23 @@
                             </a>
                         @endif
 
-                        <!-- View Switcher (Kartu vs Tabel Kompak) -->
+                        <!-- View Switcher (Mode Grid vs Mode Tabel) -->
                         <div class="bg-slate-100 p-1 rounded-xl flex items-center gap-1 border border-slate-200 me-2">
                             <button type="button" 
                                     @click="viewMode = 'grid'; localStorage.setItem('sim_view_mode', 'grid')" 
                                     :class="viewMode === 'grid' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
-                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all">
+                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+                                    title="Tampilan Mode Grid Kartu">
                                 <i class="fa-solid fa-table-cells-large"></i>
-                                <span>Kartu</span>
+                                <span>Mode Grid</span>
                             </button>
                             <button type="button" 
                                     @click="viewMode = 'table'; localStorage.setItem('sim_view_mode', 'table')" 
                                     :class="viewMode === 'table' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
-                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all">
+                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+                                    title="Tampilan Mode Tabel Rapat">
                                 <i class="fa-solid fa-table-list"></i>
-                                <span>Tabel Kompak</span>
+                                <span>Mode Tabel</span>
                             </button>
                         </div>
 
