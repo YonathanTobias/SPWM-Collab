@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+    <rect width="512" height="512" rx="128" fill="url(#stikes_grad)"/>
+    <path d="M160 110H300L352 162V392C352 405.3 341.3 416 328 416H160C146.7 416 136 405.3 136 392V134C136 120.7 146.7 110 160 110Z" fill="white" opacity="0.95"/>
+    <path d="M300 110V162H352L300 110Z" fill="#a7f3d0"/>
+    <path d="M176 210H312M176 260H312M176 310H260" stroke="#047857" stroke-width="22" stroke-linecap="round"/>
+    <circle cx="360" cy="360" r="75" fill="#059669" stroke="white" stroke-width="10"/>
+    <path d="M340 360L355 375L385 345" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+        <linearGradient id="stikes_grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#047857"/>
+            <stop offset="0.5" stop-color="#059669"/>
+            <stop offset="1" stop-color="#0f172a"/>
+        </linearGradient>
+    </defs>
+</svg>

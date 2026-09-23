@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. BLOCK DIRECT ACCESS TO CRITICAL LARAVEL DIRECTORIES & FILES
+    RewriteCond %{REQUEST_URI} ^/(app|bootstrap|config|database|resources|routes|storage|tests|vendor|\.env|\.git|composer\.) [NC]
+    RewriteRule .* - [F,L]
+
+    # 2. REDIRECT ALL TRAFFIC TO PUBLIC FOLDER
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Disable Directory Browsing in Root
+Options -Indexes

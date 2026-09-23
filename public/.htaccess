@@ -1,0 +1,47 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # 1. SECURITY HEADER ENHANCEMENTS
+    <IfModule mod_headers.c>
+        Header set X-Content-Type-Options "nosniff"
+        Header set X-Frame-Options "SAMEORIGIN"
+        Header set X-XSS-Protection "1; mode=block"
+        Header set Referrer-Policy "strict-origin-when-cross-origin"
+        Header unset X-Powered-By
+    </IfModule>
+
+    # 2. BLOCK SENSITIVE FILES & HIDDEN DOTFILES (.env, .git, etc.)
+    RewriteCond %{REQUEST_URI} "(\.env|\.git|\.htaccess|\.htpasswd|composer\.json|composer\.lock|package\.json|artisan)" [NC]
+    RewriteRule .* - [F,L]
+
+    # 3. ANTI-BACKDOOR: BLOCK DIRECT PHP EXECUTION IN STORAGE / UPLOADS PATH
+    RewriteCond %{REQUEST_URI} ^/storage/.*\.(php|phtml|php3|php4|php5|php7|phps|phar|inc|pl|py|cgi|sh|bash)$ [NC]
+    RewriteRule .* - [F,L]
+
+    # 4. BLOCK DANGEROUS HTTP METHODS
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK) [NC]
+    RewriteRule .* - [F,L]
+
+    # 5. LARAVEL STANDARD ROUTING
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller (index.php)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
