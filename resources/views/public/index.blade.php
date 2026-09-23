@@ -86,6 +86,24 @@
                             </a>
                         @endif
 
+                        <!-- View Switcher (Kartu vs Tabel Kompak) -->
+                        <div class="bg-slate-100 p-1 rounded-xl flex items-center gap-1 border border-slate-200 me-2">
+                            <button type="button" 
+                                    @click="viewMode = 'grid'; localStorage.setItem('sim_view_mode', 'grid')" 
+                                    :class="viewMode === 'grid' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
+                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all">
+                                <i class="fa-solid fa-table-cells-large"></i>
+                                <span>Kartu</span>
+                            </button>
+                            <button type="button" 
+                                    @click="viewMode = 'table'; localStorage.setItem('sim_view_mode', 'table')" 
+                                    :class="viewMode === 'table' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
+                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all">
+                                <i class="fa-solid fa-table-list"></i>
+                                <span>Tabel Kompak</span>
+                            </button>
+                        </div>
+
                         <!-- Export Buttons for Entire/Filtered List -->
                         <a href="{{ route('public.exportExcel', request()->all()) }}" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center gap-1.5" title="Ekspor Rekapitulasi ke Excel (CSV)">
                             <i class="fa-solid fa-file-excel"></i>
@@ -149,9 +167,11 @@
             </form>
         </div>
 
-        <!-- Cooperation Cards Grid -->
+        <!-- Cooperation Data Container -->
         @if($cooperations->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- OPTION 1: Grid Cards View -->
+            <div x-show="viewMode === 'grid'" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($cooperations as $item)
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/90 hover:border-stikes-400 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                         <div>
@@ -181,7 +201,7 @@
                             </p>
                         </div>
 
-                        <!-- Card Actions & Direct PDF Download Button -->
+                        <!-- Card Actions & Direct PDF / Google Docs Download Button -->
                         <div class="pt-4 border-t border-slate-100 space-y-3">
                             <div class="text-[11px] font-semibold text-slate-500 flex items-center justify-between">
                                 <span><i class="fa-regular fa-calendar-check text-stikes-600 me-1"></i> Masa Berlaku:</span>
@@ -189,7 +209,6 @@
                             </div>
 
                             <div class="flex items-center gap-2 pt-1">
-                                <!-- Direct Download / Google Docs Button on homepage card -->
                                 @if($item->is_public && $item->download_url)
                                     <a href="{{ $item->download_url }}" target="_blank" class="flex-1 py-2 px-3 text-center text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5">
                                         @if($item->document_link)
@@ -207,7 +226,6 @@
                                     </span>
                                 @endif
 
-                                <!-- Detail Modal Button -->
                                 <button @click="openModal({{ $item->id }})" class="py-2 px-3.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all border border-slate-200">
                                     Detail
                                 </button>
@@ -215,6 +233,85 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+
+            <!-- OPTION 2: Compact High-Density Table View -->
+            <div x-show="viewMode === 'table'" x-cloak class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900 text-slate-300 text-[11px] font-bold uppercase tracking-wider">
+                                <th class="py-3.5 px-4 text-center w-12">No</th>
+                                <th class="py-3.5 px-4">Instansi Mitra</th>
+                                <th class="py-3.5 px-4">Jenis & Nomor</th>
+                                <th class="py-3.5 px-4">Ruang Lingkup / Perihal</th>
+                                <th class="py-3.5 px-4">Masa Berlaku</th>
+                                <th class="py-3.5 px-4 text-center">Status</th>
+                                <th class="py-3.5 px-4 text-center">Aksi / Berkas</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-xs font-medium text-slate-700">
+                            @foreach($cooperations as $index => $item)
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">
+                                        {{ $cooperations->firstItem() + $index }}
+                                    </td>
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <span>{{ $item->partner_name }}</span>
+                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded-lg border {{ $item->level_badge_class }}">
+                                                {{ $item->level }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-semibold text-slate-800 whitespace-nowrap">
+                                        <span class="px-2 py-0.5 text-[10px] font-bold bg-stikes-100 text-stikes-800 rounded-md uppercase me-1">
+                                            {{ $item->document_type }}
+                                        </span>
+                                        <span class="text-[11px] text-slate-500 font-mono block sm:inline">{{ $item->document_number }}</span>
+                                    </td>
+                                    <td class="py-3.5 px-4 max-w-xs">
+                                        <p class="line-clamp-2 text-slate-600 font-normal leading-relaxed">
+                                            {{ $item->title }}
+                                        </p>
+                                    </td>
+                                    <td class="py-3.5 px-4 whitespace-nowrap text-[11px] font-semibold text-slate-700">
+                                        {{ $item->start_date->format('d/m/Y') }} - {{ $item->end_date->format('d/m/Y') }}
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                                        <span class="px-2.5 py-1 text-[10px] font-extrabold rounded-xl border {{ $item->status_badge_class }}">
+                                            {{ $item->computed_status }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                                        <div class="flex items-center justify-center gap-1.5">
+                                            @if($item->is_public && $item->download_url)
+                                                <a href="{{ $item->download_url }}" target="_blank" 
+                                                   class="px-2.5 py-1.5 bg-stikes-600 hover:bg-stikes-700 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all inline-flex items-center gap-1"
+                                                   title="{{ $item->document_link ? 'Buka Google Docs' : 'Unduh PDF' }}">
+                                                    @if($item->document_link)
+                                                        <i class="fa-brands fa-google-drive"></i>
+                                                    @else
+                                                        <i class="fa-solid fa-download"></i>
+                                                    @endif
+                                                </a>
+                                            @else
+                                                <span class="px-2 py-1 bg-slate-100 text-slate-400 rounded-lg text-[10px] font-bold" title="Akses Internal">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                </span>
+                                            @endif
+
+                                            <button @click="openModal({{ $item->id }})" 
+                                                    class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold text-[11px] border border-slate-200 transition-all">
+                                                Detail
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- Pagination -->
@@ -346,6 +443,7 @@
             modalOpen: false,
             loading: false,
             cooperation: null,
+            viewMode: localStorage.getItem('sim_view_mode') || 'grid',
             openModal(id) {
                 this.modalOpen = true;
                 this.loading = true;
