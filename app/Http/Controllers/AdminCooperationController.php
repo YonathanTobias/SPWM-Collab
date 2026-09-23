@@ -48,12 +48,15 @@ class AdminCooperationController extends Controller
         })->count();
         $expiredCount = Cooperation::where('status', 'Kedaluwarsa')->orWhere('end_date', '<', $today)->count();
 
+        $hideExpiredSetting = \App\Models\SiteSetting::getByKey('hide_expired_public', '0') === '1';
+
         return view('admin.cooperations.index', compact(
             'cooperations',
             'totalCount',
             'activeCount',
             'expiringCount',
-            'expiredCount'
+            'expiredCount',
+            'hideExpiredSetting'
         ));
     }
 
@@ -197,6 +200,22 @@ class AdminCooperationController extends Controller
         $cooperation = Cooperation::findOrFail($id);
 
         return back()->with('success', "Notifikasi pengingat sukses dikirimkan ke email pengelola ({$cooperation->contact_email} / pengelola@stikespantiwaluya.ac.id) untuk dokumen '{$cooperation->title}'.");
+    }
+
+    /**
+     * Quick toggle hide expired documents setting for public catalog.
+     */
+    public function toggleHideExpired(Request $request)
+    {
+        $current = \App\Models\SiteSetting::getByKey('hide_expired_public', '0');
+        $newValue = $current === '1' ? '0' : '1';
+        \App\Models\SiteSetting::setByKey('hide_expired_public', $newValue);
+
+        $statusText = $newValue === '1' 
+            ? 'DIAKTIFKAN. Dokumen yang kedaluwarsa disembunyikan dari katalog publik.' 
+            : 'DINONAKTIFKAN. Seluruh dokumen (termasuk kedaluwarsa) dapat dilihat di katalog publik.';
+
+        return back()->with('success', "Pengaturan Katalog Publik: {$statusText}");
     }
 
     /**

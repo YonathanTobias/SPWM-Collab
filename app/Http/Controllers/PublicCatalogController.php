@@ -36,9 +36,15 @@ class PublicCatalogController extends Controller
             $query->where('document_type', $type);
         }
 
-        // Status filter (Aktif, Akan Berakhir, Kedaluwarsa, Dalam Proses Perpanjangan)
+        // Status filter
         if ($status = $request->input('status')) {
             $query->where('status', $status);
+        } else {
+            // Check global Admin Setting to hide expired documents from public catalog
+            if (\App\Models\SiteSetting::getByKey('hide_expired_public', '0') === '1') {
+                $query->where('status', '!=', 'Kedaluwarsa')
+                      ->where('end_date', '>=', Carbon::today());
+            }
         }
 
         // Sorting

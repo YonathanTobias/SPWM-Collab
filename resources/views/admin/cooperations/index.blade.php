@@ -51,6 +51,29 @@
 
     </div>
 
+    <!-- Global Setting Toggle Switch Banner for Public Catalog -->
+    <div class="bg-slate-900 text-white p-5 rounded-2xl border border-slate-800 shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-stikes-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                <i class="fa-solid fa-filter"></i>
+            </div>
+            <div>
+                <h4 class="text-sm font-extrabold text-white">Filter Katalog Publik (Dokumen Kedaluwarsa)</h4>
+                <p class="text-xs text-slate-300">
+                    Aktifkan sakelar ini untuk membatasi katalog publik hanya menampilkan dokumen yang **masih berlaku / aktif**.
+                </p>
+            </div>
+        </div>
+
+        <form action="{{ route('admin.settings.toggleHideExpired') }}" method="POST">
+            @csrf
+            <button type="submit" class="px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer {{ $hideExpiredSetting ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400' : 'bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white' }}" title="Klik untuk mengubah sakelar filter kedaluwarsa publik">
+                <i class="fa-solid {{ $hideExpiredSetting ? 'fa-toggle-on text-lg' : 'fa-toggle-off text-lg text-slate-500' }}"></i>
+                <span>Tampilan Publik: {{ $hideExpiredSetting ? 'HANYA BELUM KEDALUWARSA' : 'TAMPILKAN SEMUA' }}</span>
+            </button>
+        </form>
+    </div>
+
     <!-- Main Table Container -->
     <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         
