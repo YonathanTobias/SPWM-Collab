@@ -72,7 +72,7 @@ if (NavMenu::count() == 0) {
 
     NavMenu::create([
         'parent_id' => $akreditasiMenu->id,
-        'title' => 'Sistem Rekapitulasi Borang',
+        'title' => 'Laporan & Visualisasi Data',
         'url' => '/dashboard',
         'icon' => 'fa-solid fa-chart-pie',
         'is_external' => false,

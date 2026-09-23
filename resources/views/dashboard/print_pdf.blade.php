@@ -83,7 +83,7 @@
     <div class="header">
         <h1>STIKes Panti Waluya Malang</h1>
         <p>REKAPITULASI DOKUMEN KERJA SAMA (MoU, MoA, dan IA)</p>
-        <p style="font-size: 9px; color: #94a3b8;">Format Pelaporan Borang Akreditasi Institusi & Program Studi</p>
+        <p style="font-size: 9px; color: #94a3b8;">Laporan & Visualisasi Data Kerjasama Institusi & Program Studi</p>
     </div>
 
     <div class="meta-info">
