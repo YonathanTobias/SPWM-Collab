@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminCooperationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardReportController;
 use App\Http\Controllers\PublicCatalogController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Public Catalog Routes (No login required)
@@ -29,8 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/cooperations/{id}', [AdminCooperationController::class, 'update'])->name('admin.cooperations.update');
     Route::delete('/admin/cooperations/{id}', [AdminCooperationController::class, 'destroy'])->name('admin.cooperations.destroy');
     Route::patch('/admin/cooperations/{id}/toggle-public', [AdminCooperationController::class, 'togglePublic'])->name('admin.cooperations.togglePublic');
-    Route::post('/admin/settings/toggle-hide-expired', [AdminCooperationController::class, 'toggleHideExpired'])->name('admin.settings.toggleHideExpired');
-    Route::post('/admin/settings/update-footer', [AdminCooperationController::class, 'updateFooterSetting'])->name('admin.settings.updateFooter');
+    // System Settings (Pengaturan Sistem)
+    Route::get('/admin/settings', [SettingController::class, 'index'])->name('admin.settings.index');
+    Route::post('/admin/settings/toggle-hide-expired', [SettingController::class, 'toggleHideExpired'])->name('admin.settings.toggleHideExpired');
+    Route::post('/admin/settings/update-footer', [SettingController::class, 'updateFooter'])->name('admin.settings.updateFooter');
     
     // Navbar Menu Management (Kelola Menu Navbar)
     Route::get('/admin/nav-menus', [\App\Http\Controllers\NavMenuController::class, 'index'])->name('admin.nav_menus.index');

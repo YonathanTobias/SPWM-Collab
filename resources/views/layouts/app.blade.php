@@ -102,6 +102,11 @@
                         <i class="fa-solid fa-bars-staggered w-4 text-center text-sm"></i>
                         <span>Kelola Menu Navbar</span>
                     </a>
+                    <a href="{{ route('admin.settings.index') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.settings.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        <i class="fa-solid fa-gear w-4 text-center text-sm"></i>
+                        <span>Pengaturan Sistem</span>
+                    </a>
                 @endif
 
                 <a href="{{ route('admin.notifications') }}" 
