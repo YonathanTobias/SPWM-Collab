@@ -121,8 +121,8 @@
                     <div class="pt-6 px-3 pb-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Laporan & Akreditasi</div>
                     <a href="{{ route('dashboard.index') }}" 
                        class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('dashboard.index') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
-                        <i class="fa-solid fa-file-excel w-4 text-center text-sm text-emerald-400"></i>
-                        <span>Rekapitulasi Borang</span>
+                        <i class="fa-solid fa-chart-pie w-4 text-center text-sm text-emerald-400"></i>
+                        <span>Visualisasi Data & Rekapitulasi Akreditasi</span>
                     </a>
                 @endif
 
