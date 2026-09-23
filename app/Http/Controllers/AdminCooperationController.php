@@ -49,6 +49,8 @@ class AdminCooperationController extends Controller
         $expiredCount = Cooperation::where('status', 'Kedaluwarsa')->orWhere('end_date', '<', $today)->count();
 
         $hideExpiredSetting = \App\Models\SiteSetting::getByKey('hide_expired_public', '0') === '1';
+        $footerCopyright = \App\Models\SiteSetting::getByKey('footer_copyright', '© ' . date('Y') . ' STIKes Panti Waluya Malang. Seluruh hak cipta dilindungi undang-undang.');
+        $footerTagline = \App\Models\SiteSetting::getByKey('footer_tagline', 'SPWM-Collab v1.0 • Publik Directory');
 
         return view('admin.cooperations.index', compact(
             'cooperations',
@@ -56,7 +58,9 @@ class AdminCooperationController extends Controller
             'activeCount',
             'expiringCount',
             'expiredCount',
-            'hideExpiredSetting'
+            'hideExpiredSetting',
+            'footerCopyright',
+            'footerTagline'
         ));
     }
 
@@ -200,6 +204,22 @@ class AdminCooperationController extends Controller
         $cooperation = Cooperation::findOrFail($id);
 
         return back()->with('success', "Notifikasi pengingat sukses dikirimkan ke email pengelola ({$cooperation->contact_email} / pengelola@stikespantiwaluya.ac.id) untuk dokumen '{$cooperation->title}'.");
+    }
+
+    /**
+     * Update custom footer text settings.
+     */
+    public function updateFooterSetting(Request $request)
+    {
+        $request->validate([
+            'footer_copyright' => 'required|string|max:500',
+            'footer_tagline' => 'required|string|max:255',
+        ]);
+
+        \App\Models\SiteSetting::setByKey('footer_copyright', $request->input('footer_copyright'));
+        \App\Models\SiteSetting::setByKey('footer_tagline', $request->input('footer_tagline'));
+
+        return back()->with('success', 'Teks footer halaman publik berhasil diperbarui.');
     }
 
     /**

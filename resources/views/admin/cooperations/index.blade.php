@@ -74,6 +74,48 @@
         </form>
     </div>
 
+    <!-- Edit Footer Text Setting Box -->
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3" x-data="{ openFooterEdit: false }">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-stikes-100 text-stikes-700 flex items-center justify-center text-base flex-shrink-0">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Pengaturan Teks Footer Publik</h4>
+                    <p class="text-[11px] text-slate-500">Ubah hak cipta dan tagline versi aplikasi yang tampil di bagian bawah katalog publik.</p>
+                </div>
+            </div>
+
+            <button type="button" @click="openFooterEdit = !openFooterEdit" class="px-3.5 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-xs font-bold text-slate-700 transition-all flex items-center gap-1.5 cursor-pointer">
+                <i class="fa-solid" :class="openFooterEdit ? 'fa-chevron-up' : 'fa-pen'"></i>
+                <span x-text="openFooterEdit ? 'Tutup Form' : 'Edit Teks Footer'"></span>
+            </button>
+        </div>
+
+        <form x-show="openFooterEdit" x-cloak action="{{ route('admin.settings.updateFooter') }}" method="POST" class="pt-4 border-t border-slate-200 space-y-4">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Teks Hak Cipta (Copyright)</label>
+                    <input type="text" name="footer_copyright" value="{{ old('footer_copyright', $footerCopyright) }}" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-stikes-500 focus:bg-white transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Teks Tagline & Versi</label>
+                    <input type="text" name="footer_tagline" value="{{ old('footer_tagline', $footerTagline) }}" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-stikes-500 focus:bg-white transition-all">
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 bg-stikes-600 hover:bg-stikes-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>Simpan Teks Footer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- Main Table Container -->
     <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         

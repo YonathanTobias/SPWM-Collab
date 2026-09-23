@@ -272,8 +272,8 @@
             </div>
 
             <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-                <p>&copy; {{ date('Y') }} STIKes Panti Waluya Malang. Seluruh hak cipta dilindungi undang-undang.</p>
-                <p class="mt-2 sm:mt-0 font-medium">SPWM-Collab v1.0 • Publik Directory</p>
+                <p>{{ \App\Models\SiteSetting::getByKey('footer_copyright', '© ' . date('Y') . ' STIKes Panti Waluya Malang. Seluruh hak cipta dilindungi undang-undang.') }}</p>
+                <p class="mt-2 sm:mt-0 font-medium">{{ \App\Models\SiteSetting::getByKey('footer_tagline', 'SPWM-Collab v1.0 • Publik Directory') }}</p>
             </div>
         </div>
     </footer>

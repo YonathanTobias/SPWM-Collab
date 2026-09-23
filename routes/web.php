@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/cooperations/{id}', [AdminCooperationController::class, 'destroy'])->name('admin.cooperations.destroy');
     Route::patch('/admin/cooperations/{id}/toggle-public', [AdminCooperationController::class, 'togglePublic'])->name('admin.cooperations.togglePublic');
     Route::post('/admin/settings/toggle-hide-expired', [AdminCooperationController::class, 'toggleHideExpired'])->name('admin.settings.toggleHideExpired');
+    Route::post('/admin/settings/update-footer', [AdminCooperationController::class, 'updateFooterSetting'])->name('admin.settings.updateFooter');
     
     // Navbar Menu Management (Kelola Menu Navbar)
     Route::get('/admin/nav-menus', [\App\Http\Controllers\NavMenuController::class, 'index'])->name('admin.nav_menus.index');
