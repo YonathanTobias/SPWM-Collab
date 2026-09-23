@@ -7,5 +7,5 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
-$updated = NavMenu::where('title', 'like', '%Borang%')->update(['title' => 'Laporan & Visualisasi Data']);
+$updated = NavMenu::where('url', '/dashboard')->update(['title' => 'Visualisasi Data & Rekapitulasi Akreditasi']);
 echo "Updated $updated NavMenu records.\n";

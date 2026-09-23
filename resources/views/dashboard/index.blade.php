@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
-@section('title', 'Laporan & Visualisasi Data')
-@section('page-title', 'Laporan & Visualisasi Data Kerjasama')
+@section('title', 'Visualisasi Data & Rekapitulasi Akreditasi')
+@section('page-title', 'Visualisasi Data & Rekapitulasi Akreditasi')
 
 @section('content')
 <div class="space-y-8">
 
-    <!-- Hero Report Banner -->
+    <!-- Hero Accreditation Export Banner -->
     <div class="bg-gradient-to-br from-stikes-900 via-stikes-800 to-slate-900 p-6 sm:p-8 rounded-3xl text-white shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div class="max-w-2xl">
             <span class="px-3 py-1 bg-white/10 text-stikes-200 border border-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-3 inline-block">
-                <i class="fa-solid fa-chart-line me-1"></i> Laporan & Visualisasi Data
+                <i class="fa-solid fa-graduation-cap me-1"></i> Borang Akreditasi LAM-PTKes / BAN-PT
             </span>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
-                Laporan & visualisasi data
+                Visualisasi Data & Rekapitulasi Akreditasi
             </h2>
             <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
-                Unduh rekapitulasi data kerjasama institusi dan prodi secara cepat dalam format Excel dan PDF STIKes Panti Waluya Malang.
+                Unduh rekapitulasi data kerjasama institusi dan prodi secara cepat sesuai format borang akreditasi nasional dan internasional STIKes Panti Waluya Malang.
             </p>
         </div>
 
         <div class="flex flex-col sm:flex-row items-center gap-3 flex-shrink-0">
             <a href="{{ route('dashboard.exportExcel') }}" class="w-full sm:w-auto px-5 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs rounded-2xl shadow-lg shadow-emerald-500/30 transition-all inline-flex items-center justify-center gap-2">
                 <i class="fa-solid fa-file-excel text-base"></i>
-                <span>Ekspor Excel (CSV)</span>
+                <span>Ekspor Excel / CSV Akreditasi</span>
             </a>
 
             <a href="{{ route('dashboard.exportPdf') }}" target="_blank" class="w-full sm:w-auto px-5 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-xs rounded-2xl transition-all inline-flex items-center justify-center gap-2">
