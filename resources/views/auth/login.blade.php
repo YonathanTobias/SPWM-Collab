@@ -19,11 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="h-full font-sans antialiased text-slate-800 flex items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-stikes-900 relative overflow-hidden">
-
-    <!-- Ambient Glowing Backdrop -->
-    <div class="absolute -top-40 -left-40 w-96 h-96 bg-stikes-500/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+<body class="h-full font-sans antialiased text-slate-800 flex items-center justify-center p-4 bg-slate-950 relative">
 
     <div class="w-full max-w-md relative z-10">
         
@@ -36,10 +32,10 @@
         </div>
 
         <!-- Login Card -->
-        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
             
             <div class="text-center mb-8">
-                <div class="w-14 h-14 rounded-2xl bg-stikes-600 text-white flex items-center justify-center text-2xl mx-auto shadow-lg shadow-stikes-600/40 mb-4">
+                <div class="w-14 h-14 rounded-xl bg-stikes-600 text-white flex items-center justify-center text-2xl mx-auto shadow-md mb-4">
                     <i class="fa-solid fa-user-shield"></i>
                 </div>
                 <h2 class="text-2xl font-extrabold text-white tracking-tight">Portal Pengelola System</h2>

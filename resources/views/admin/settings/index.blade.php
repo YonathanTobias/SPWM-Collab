@@ -14,7 +14,7 @@
     @endif
 
     <!-- Card 1: Sakelar Filter Katalog Publik -->
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
             <div class="w-10 h-10 rounded-xl bg-stikes-100 text-stikes-700 flex items-center justify-center text-lg flex-shrink-0">
                 <i class="fa-solid fa-filter"></i>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Card 2: Pengaturan Teks Footer Halaman Publik -->
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
             <div class="w-10 h-10 rounded-xl bg-stikes-100 text-stikes-700 flex items-center justify-center text-lg flex-shrink-0">
                 <i class="fa-solid fa-pen-nib"></i>

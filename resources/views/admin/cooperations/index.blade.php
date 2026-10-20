@@ -52,7 +52,7 @@
     </div>
 
     <!-- Main Table Container -->
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         
         <!-- Header Controls -->
         <div class="p-6 border-b border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">

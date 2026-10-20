@@ -91,11 +91,11 @@ class Cooperation extends Model
     public function getStatusBadgeClassAttribute(): string
     {
         return match ($this->computed_status) {
-            'Aktif' => 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800',
-            'Akan Berakhir' => 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800',
-            'Kedaluwarsa' => 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800',
-            'Dalam Proses Perpanjangan' => 'bg-sky-100 text-sky-800 border-sky-300 dark:bg-sky-950/50 dark:text-sky-300 dark:border-sky-800',
-            default => 'bg-gray-100 text-gray-800 border-gray-300',
+            'Aktif' => 'bg-emerald-100 text-emerald-900 border-emerald-300',
+            'Akan Berakhir' => 'bg-amber-100 text-amber-900 border-amber-300',
+            'Kedaluwarsa' => 'bg-rose-100 text-rose-900 border-rose-300',
+            'Dalam Proses Perpanjangan' => 'bg-sky-100 text-sky-900 border-sky-300',
+            default => 'bg-slate-100 text-slate-900 border-slate-300',
         };
     }
 
@@ -105,10 +105,10 @@ class Cooperation extends Model
     public function getLevelBadgeClassAttribute(): string
     {
         return match ($this->level) {
-            'Internasional' => 'bg-purple-100 text-purple-800 border-purple-300 dark:bg-purple-950/50 dark:text-purple-300 dark:border-purple-800',
-            'Nasional' => 'bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800',
-            'Lokal' => 'bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
-            default => 'bg-gray-100 text-gray-800 border-gray-300',
+            'Internasional' => 'bg-purple-100 text-purple-900 border-purple-300',
+            'Nasional' => 'bg-blue-100 text-blue-900 border-blue-300',
+            'Lokal' => 'bg-slate-100 text-slate-900 border-slate-300',
+            default => 'bg-slate-100 text-slate-900 border-slate-300',
         };
     }
 }

@@ -7,14 +7,9 @@
     
     <!-- Hero Banner with Search -->
     <section class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-stikes-900 text-white overflow-hidden py-14 sm:py-20">
-        
-        <!-- Decorative Ambient Light -->
-        <div class="absolute -top-40 -right-40 w-96 h-96 bg-stikes-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-3xl text-center mx-auto mb-8">
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stikes-500/10 border border-stikes-500/30 text-stikes-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-stikes-500/10 border border-stikes-500/30 text-stikes-300 text-xs font-bold uppercase tracking-wider mb-3">
                     <i class="fa-solid fa-building-columns"></i>
                     <span>Katalog Terbuka Kerjasama Publik</span>
                 </span>
@@ -22,7 +17,7 @@
                     Daftar Dokumen Kerja Sama STIKes Panti Waluya Malang
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-                    Sistem Katalog Terpusat Dokumen MoU, MoA, dan IA. Seluruh masyarakat, akademisi, dan mitra dapat langsung melihat daftar kerja sama serta mengunduh berkas resmi PDF tanpa harus melalukan login.
+                    Sistem Katalog Terpusat Dokumen MoU, MoA, dan IA. Seluruh masyarakat, akademisi, dan mitra dapat langsung melihat daftar kerja sama serta mengunduh berkas resmi PDF tanpa harus melakukan login.
                 </p>
             </div>
 
@@ -35,8 +30,8 @@
                                name="search" 
                                value="{{ request('search') }}"
                                placeholder="Cari nama mitra, nomor surat, atau bidang kerja sama..." 
-                               class="w-full pl-14 pr-32 py-4 bg-white/10 backdrop-blur-md text-white placeholder-slate-400 border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-stikes-400 focus:bg-white/15 text-sm transition-all shadow-2xl">
-                        <button type="submit" class="absolute right-2 px-5 py-2.5 bg-stikes-600 hover:bg-stikes-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md hover:shadow-stikes-500/40">
+                               class="w-full pl-14 pr-32 py-3.5 bg-slate-800/90 text-white placeholder-slate-400 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-stikes-500 text-sm transition-all shadow-lg">
+                        <button type="submit" class="absolute right-2 px-5 py-2 bg-stikes-600 hover:bg-stikes-500 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-sm">
                             Cari
                         </button>
                     </div>
@@ -49,15 +44,15 @@
 
             <!-- Counter Stats Badges (MoU, MoA, IA) -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mt-10 pt-8 border-t border-slate-700/60">
-                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
+                <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 text-center">
                     <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">{{ $totalMou }}</div>
                     <div class="text-xs font-medium text-slate-400 mt-1">MoU Kesepahaman</div>
                 </div>
-                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
+                <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 text-center">
                     <div class="text-2xl sm:text-3xl font-extrabold text-blue-400">{{ $totalMoa }}</div>
                     <div class="text-xs font-medium text-slate-400 mt-1">MoA Perjanjian</div>
                 </div>
-                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
+                <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 text-center">
                     <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">{{ $totalIa }}</div>
                     <div class="text-xs font-medium text-slate-400 mt-1">IA Pelaksanaan</div>
                 </div>
@@ -69,13 +64,13 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
         <!-- Filter Controls Bar -->
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 mb-8">
             <form action="{{ route('public.index') }}" method="GET" class="space-y-4">
                 
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <h3 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-stikes-600"></i>
-                        <span>Filter & Filterisasi Katalog Publik</span>
+                        <span>Filter & Pencarian Dokumen</span>
                     </h3>
 
                     <div class="flex items-center gap-2 flex-wrap">
@@ -87,11 +82,11 @@
                         @endif
 
                         <!-- View Switcher (Mode Grid vs Mode Tabel) -->
-                        <div class="bg-slate-100 p-1 rounded-xl flex items-center gap-1 border border-slate-200 me-2">
+                        <div class="bg-slate-100 p-1 rounded-lg flex items-center gap-1 border border-slate-200 me-2">
                             <button type="button" 
                                     @click="viewMode = 'grid'; localStorage.setItem('sim_view_mode', 'grid')" 
                                     :class="viewMode !== 'table' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
-                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+                                    class="px-3 py-1.5 rounded-md text-xs flex items-center gap-1.5 transition-all"
                                     title="Tampilan Mode Grid Kartu">
                                 <i class="fa-solid fa-table-cells-large"></i>
                                 <span>Mode Grid</span>
@@ -99,7 +94,7 @@
                             <button type="button" 
                                     @click="viewMode = 'table'; localStorage.setItem('sim_view_mode', 'table')" 
                                     :class="viewMode === 'table' ? 'bg-white text-stikes-700 shadow-sm font-extrabold' : 'text-slate-600 hover:text-slate-900 font-medium'" 
-                                    class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+                                    class="px-3 py-1.5 rounded-md text-xs flex items-center gap-1.5 transition-all"
                                     title="Tampilan Mode Tabel Rapat">
                                 <i class="fa-solid fa-table-list"></i>
                                 <span>Mode Tabel</span>
@@ -107,12 +102,12 @@
                         </div>
 
                         <!-- Export Buttons for Entire/Filtered List -->
-                        <a href="{{ route('public.exportExcel', request()->all()) }}" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center gap-1.5" title="Ekspor Rekapitulasi ke Excel (CSV)">
+                        <a href="{{ route('public.exportExcel', request()->all()) }}" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition-all flex items-center gap-1.5" title="Ekspor Rekapitulasi ke Excel (CSV)">
                             <i class="fa-solid fa-file-excel"></i>
                             <span>Ekspor Excel</span>
                         </a>
 
-                        <a href="{{ route('public.exportPdf', request()->all()) }}" target="_blank" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center gap-1.5" title="Cetak Rekapitulasi PDF">
+                        <a href="{{ route('public.exportPdf', request()->all()) }}" target="_blank" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-lg shadow-sm transition-all flex items-center gap-1.5" title="Cetak Rekapitulasi PDF">
                             <i class="fa-solid fa-print"></i>
                             <span>Cetak PDF</span>
                         </a>
@@ -175,15 +170,15 @@
             <!-- OPTION 1: Grid Cards View -->
             <div x-show="viewMode !== 'table'" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($cooperations as $item)
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200/90 hover:border-stikes-400 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/90 hover:border-stikes-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
                         <div>
                             <!-- Header Badges -->
                             <div class="flex items-center justify-between gap-2 mb-4">
-                                <span class="px-3 py-1 text-[11px] font-extrabold rounded-xl border {{ $item->level_badge_class }}">
+                                <span class="px-2.5 py-1 text-[11px] font-bold rounded-md border {{ $item->level_badge_class }}">
                                     {{ $item->level }}
                                 </span>
 
-                                <span class="px-3 py-1 text-[11px] font-extrabold rounded-xl border {{ $item->status_badge_class }}">
+                                <span class="px-2.5 py-1 text-[11px] font-bold rounded-md border {{ $item->status_badge_class }}">
                                     {{ $item->computed_status }}
                                 </span>
                             </div>
@@ -212,7 +207,7 @@
 
                             <div class="flex items-center gap-2 pt-1">
                                 @if($item->is_public && $item->download_url)
-                                    <a href="{{ $item->download_url }}" target="_blank" class="flex-1 py-2 px-3 text-center text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5">
+                                    <a href="{{ $item->download_url }}" target="_blank" class="flex-1 py-2 px-3 text-center text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5">
                                         @if($item->document_link)
                                             <i class="fa-brands fa-google-drive"></i>
                                             <span>Buka Google Docs</span>
@@ -222,13 +217,13 @@
                                         @endif
                                     </a>
                                 @else
-                                    <span class="flex-1 py-2 px-3 text-center text-[11px] font-semibold text-slate-500 bg-slate-100 rounded-xl flex items-center justify-center gap-1">
+                                    <span class="flex-1 py-2 px-3 text-center text-[11px] font-semibold text-slate-600 bg-slate-100 rounded-lg flex items-center justify-center gap-1">
                                         <i class="fa-solid fa-lock text-slate-400"></i>
                                         <span>Akses Internal</span>
                                     </span>
                                 @endif
 
-                                <button @click="openModal({{ $item->id }})" class="py-2 px-3.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all border border-slate-200">
+                                <button @click="openModal({{ $item->id }})" class="py-2 px-3.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-all border border-slate-200">
                                     Detail
                                 </button>
                             </div>
@@ -238,7 +233,7 @@
             </div>
 
             <!-- OPTION 2: Compact High-Density Table View -->
-            <div x-show="viewMode === 'table'" x-cloak class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+            <div x-show="viewMode === 'table'" x-cloak class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -343,7 +338,7 @@
 
         <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <div x-show="modalOpen" x-transition.scale.95 
-                 class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl border border-slate-200">
+                 class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl border border-slate-200">
                 
                 <div x-show="loading" class="p-12 text-center">
                     <i class="fa-solid fa-circle-notch fa-spin text-3xl text-stikes-600 mb-3"></i>
@@ -356,12 +351,12 @@
                         <div class="px-6 py-5 bg-slate-900 text-white flex items-center justify-between">
                             <div>
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="px-2.5 py-0.5 text-[10px] font-bold bg-stikes-600 text-white rounded-full uppercase" x-text="cooperation.document_type"></span>
+                                    <span class="px-2.5 py-0.5 text-[10px] font-bold bg-stikes-600 text-white rounded uppercase" x-text="cooperation.document_type"></span>
                                     <span class="text-xs text-slate-300 font-mono" x-text="cooperation.document_number"></span>
                                 </div>
                                 <h3 class="text-lg font-bold text-white leading-tight" x-text="cooperation.partner_name"></h3>
                             </div>
-                            <button @click="modalOpen = false" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors">
+                            <button @click="modalOpen = false" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition-colors">
                                 <i class="fa-solid fa-xmark text-xl"></i>
                             </button>
                         </div>
@@ -370,10 +365,10 @@
                         <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
                             
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-3 py-1 text-xs font-extrabold rounded-xl border" :class="cooperation.level_badge" x-text="cooperation.level"></span>
-                                <span class="px-3 py-1 text-xs font-extrabold rounded-xl border" :class="cooperation.status_badge" x-text="cooperation.status"></span>
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-md border" :class="cooperation.level_badge" x-text="cooperation.level"></span>
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-md border" :class="cooperation.status_badge" x-text="cooperation.status"></span>
                                 <template x-if="!cooperation.is_public">
-                                    <span class="px-3 py-1 text-xs font-bold rounded-xl bg-amber-100 text-amber-800 border border-amber-300">
+                                    <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-100 text-amber-900 border border-amber-300">
                                         <i class="fa-solid fa-lock me-1"></i> Akses Internal (Ringkasan Sahaja)
                                     </span>
                                 </template>
@@ -381,17 +376,17 @@
 
                             <div>
                                 <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Ruang Lingkup / Judul Kerja Sama</h4>
-                                <p class="text-sm text-slate-800 font-medium leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-200" x-text="cooperation.scope"></p>
+                                <p class="text-sm text-slate-800 font-medium leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200" x-text="cooperation.scope"></p>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                                     <span class="text-xs font-bold text-slate-500 block mb-1">Masa Berlaku Dokumen</span>
                                     <p class="text-xs font-semibold text-slate-900">
                                         <span x-text="cooperation.start_date"></span> s/d <span x-text="cooperation.end_date"></span>
                                     </p>
                                 </div>
-                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                                     <span class="text-xs font-bold text-slate-500 block mb-1">Kontak Instansi / PIC</span>
                                     <p class="text-xs font-semibold text-slate-900" x-text="cooperation.contact_person"></p>
                                     <p class="text-[11px] text-slate-500" x-text="cooperation.contact_email"></p>
@@ -399,21 +394,21 @@
                             </div>
 
                             <!-- Document File / Link Action -->
-                            <div class="p-5 rounded-2xl border bg-emerald-50/80 border-emerald-200">
+                            <div class="p-5 rounded-xl border bg-emerald-50/80 border-emerald-200">
                                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl bg-stikes-600 text-white flex items-center justify-center text-xl flex-shrink-0">
+                                        <div class="w-10 h-10 rounded-lg bg-stikes-600 text-white flex items-center justify-center text-xl flex-shrink-0">
                                             <i :class="cooperation.has_external_link ? 'fa-brands fa-google-drive' : 'fa-solid fa-file-pdf'"></i>
                                         </div>
                                         <div>
                                             <h5 class="text-xs font-bold text-slate-900" x-text="cooperation.has_external_link ? 'Tautan Resmi Google Docs / Drive' : 'Berkas Dokumen Resmi PDF'"></h5>
                                             <p class="text-[11px] text-slate-600" x-show="cooperation.is_public">Dokumen ini telah disetujui untuk diakses secara bebas oleh publik.</p>
-                                            <p class="text-[11px] text-amber-700" x-show="!cooperation.is_public">Dokumen ini bersifat internal. Hanya ringkasan yang ditampilkan untuk publik.</p>
+                                            <p class="text-[11px] text-amber-800" x-show="!cooperation.is_public">Dokumen ini bersifat internal. Hanya ringkasan yang ditampilkan untuk publik.</p>
                                         </div>
                                     </div>
 
                                     <template x-if="cooperation.is_public && cooperation.has_file">
-                                        <a :href="cooperation.download_url" target="_blank" class="w-full sm:w-auto px-5 py-2.5 bg-stikes-600 hover:bg-stikes-700 text-white font-bold text-xs rounded-xl transition-all shadow-md text-center inline-flex items-center justify-center gap-2">
+                                        <a :href="cooperation.download_url" target="_blank" class="w-full sm:w-auto px-5 py-2.5 bg-stikes-600 hover:bg-stikes-700 text-white font-bold text-xs rounded-lg transition-all shadow-sm text-center inline-flex items-center justify-center gap-2">
                                             <i :class="cooperation.has_external_link ? 'fa-brands fa-google-drive' : 'fa-solid fa-download'"></i>
                                             <span x-text="cooperation.has_external_link ? 'Buka Google Docs' : 'Unduh Dokumen PDF'"></span>
                                         </a>
@@ -424,7 +419,7 @@
                         </div>
 
                         <div class="px-6 py-4 bg-slate-100 flex justify-end">
-                            <button @click="modalOpen = false" class="px-5 py-2 bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold text-xs rounded-xl transition-colors">
+                            <button @click="modalOpen = false" class="px-5 py-2 bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold text-xs rounded-lg transition-colors">
                                 Tutup
                             </button>
                         </div>
