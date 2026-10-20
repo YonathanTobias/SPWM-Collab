@@ -156,58 +156,18 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('js/dashboard-charts.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
-        // Chart 1: Document Type Doughnut Chart
-        const ctxType = document.getElementById('typeChart').getContext('2d');
-        new Chart(ctxType, {
-            type: 'doughnut',
-            data: {
-                labels: ['MoU (Nota Kesepahaman)', 'MoA (Perjanjian Kerjasama)', 'IA (Implementation Arrangement)'],
-                datasets: [{
-                    data: [{{ $mouCount }}, {{ $moaCount }}, {{ $iaCount }}],
-                    backgroundColor: ['#059669', '#2563eb', '#9333ea'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { font: { family: 'Plus Jakarta Sans', size: 11, weight: 'bold' } }
-                    }
-                }
-            }
+        initDashboardCharts({
+            mouCount: {{ $mouCount }},
+            moaCount: {{ $moaCount }},
+            iaCount: {{ $iaCount }},
+            aktifCount: {{ $aktifCount }},
+            akanBerakhirCount: {{ $akanBerakhirCount }},
+            kedaluwarsaCount: {{ $kedaluwarsaCount }},
+            perpanjanganCount: {{ $perpanjanganCount }}
         });
-
-        // Chart 2: Status Bar Chart
-        const ctxStatus = document.getElementById('statusChart').getContext('2d');
-        new Chart(ctxStatus, {
-            type: 'bar',
-            data: {
-                labels: ['Aktif', 'Akan Berakhir', 'Kedaluwarsa', 'Dalam Perpanjangan'],
-                datasets: [{
-                    label: 'Jumlah Dokumen',
-                    data: [{{ $aktifCount }}, {{ $akanBerakhirCount }}, {{ $kedaluwarsaCount }}, {{ $perpanjanganCount }}],
-                    backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#0284c7'],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: { beginAtZero: true, ticks: { precision: 0 } }
-                }
-            }
-        });
-
     });
 </script>
 @endpush
