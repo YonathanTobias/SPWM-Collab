@@ -214,7 +214,7 @@
                         <span>STIKes Panti Waluya Malang</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                        Sistem Informasi Terpadu Pengelolaan Dokumen Kerjasama (MoU, MoA, dan IA) untuk keterbukaan informasi publik dan pemenuhan standar akreditasi institusi & program studi.
+                        {{ \App\Models\SiteSetting::getByKey('footer_description', 'Sistem Informasi Terpadu Pengelolaan Dokumen Kerjasama (MoU, MoA, dan IA) untuk keterbukaan informasi publik dan pemenuhan standar akreditasi institusi & program studi.') }}
                     </p>
                 </div>
 
@@ -223,29 +223,31 @@
                     <ul class="space-y-2 text-xs">
                         <li class="flex items-start gap-2">
                             <i class="fa-solid fa-location-dot text-stikes-500 mt-0.5"></i>
-                            <span>Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 65117</span>
+                            <span>{{ \App\Models\SiteSetting::getByKey('footer_address', 'Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 65117') }}</span>
                         </li>
                         <li class="flex items-center gap-2">
                             <i class="fa-solid fa-envelope text-stikes-500"></i>
-                            <span>kerjasama@stikespantiwaluya.ac.id</span>
+                            <a href="mailto:{{ \App\Models\SiteSetting::getByKey('footer_email', 'kerjasama@stikespantiwaluya.ac.id') }}" class="hover:text-white transition-colors">
+                                {{ \App\Models\SiteSetting::getByKey('footer_email', 'kerjasama@stikespantiwaluya.ac.id') }}
+                            </a>
                         </li>
                         <li class="flex items-center gap-2">
                             <i class="fa-solid fa-phone text-stikes-500"></i>
-                            <span>(0341) 369003</span>
+                            <span>{{ \App\Models\SiteSetting::getByKey('footer_phone', '(0341) 369003') }}</span>
                         </li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Lokasi Kampus (Google Maps)</h4>
-                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-md bg-slate-800">
-                        <iframe src="https://maps.google.com/maps?q=STIKes+Panti+Waluya+Malang,+Jl.+Yulius+Usman+No.62,+Kasin,+Kec.+Klojen,+Kota+Malang,+Jawa+Timur+65117&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    <div class="rounded-xl overflow-hidden border border-slate-800 shadow-md bg-slate-800">
+                        <iframe src="{{ \App\Models\SiteSetting::getByKey('footer_maps_url', 'https://maps.google.com/maps?q=STIKes+Panti+Waluya+Malang,+Jl.+Yulius+Usman+No.62,+Kasin,+Kec.+Klojen,+Kota+Malang,+Jawa+Timur+65117&t=&z=15&ie=UTF8&iwloc=&output=embed') }}" 
                                 width="100%" 
                                 height="130" 
                                 style="border:0;" 
                                 allowfullscreen="" 
                                 loading="lazy" 
-                                class="w-full h-32 rounded-2xl"></iframe>
+                                class="w-full h-32 rounded-xl"></iframe>
                     </div>
                 </div>
             </div>
