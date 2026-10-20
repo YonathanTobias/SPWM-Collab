@@ -66,10 +66,13 @@
                 <div class="hidden md:flex items-center gap-1 sm:gap-2">
                     @foreach($topNavMenus as $menu)
                         @if($menu->activeChildren->count() > 0)
-                            <!-- Dropdown Parent Menu -->
-                            <div class="relative" x-data="{ open: false }" @mouseleave="open = false">
-                                <button @click="open = !open" @mouseenter="open = true" 
-                                        class="flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-stikes-700 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all cursor-pointer">
+                            <!-- Dropdown Parent Menu (Click-to-Toggle, Stable & Intuitive) -->
+                            <div class="relative" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.window="open = false">
+                                <button type="button" 
+                                        @click="open = !open" 
+                                        :aria-expanded="open.toString()"
+                                        class="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer select-none"
+                                        :class="open ? 'bg-stikes-50 text-stikes-700' : 'text-slate-700 hover:text-stikes-700 hover:bg-slate-100'">
                                     <i class="{{ $menu->icon ?: 'fa-solid fa-folder' }} text-stikes-600"></i>
                                     <span>{{ $menu->title }}</span>
                                     <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-200" :class="open ? 'rotate-180 text-stikes-600' : ''"></i>
@@ -77,19 +80,20 @@
 
                                 <!-- Sub-menu Dropdown List -->
                                 <div x-show="open" 
-                                     x-transition:enter="transition ease-out duration-150"
-                                     x-transition:enter-start="opacity-0 translate-y-1 scale-95"
-                                     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                                     x-transition:leave="transition ease-in duration-100"
-                                     x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                                     x-transition:leave-end="opacity-0 translate-y-1 scale-95"
+                                     x-transition:enter="transition ease-out duration-100"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-75"
+                                     x-transition:leave-start="opacity-100 scale-100"
+                                     x-transition:leave-end="opacity-0 scale-95"
                                      x-cloak
-                                     class="absolute left-0 mt-1 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 py-2 z-50">
+                                     class="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50">
                                     
                                     @foreach($menu->activeChildren as $child)
                                         <a href="{{ $child->url }}" 
                                            @if($child->is_external) target="_blank" @endif
-                                           class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-stikes-50 hover:text-stikes-800 transition-colors">
+                                           @click="open = false"
+                                           class="flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-stikes-50 hover:text-stikes-800 transition-colors">
                                             <i class="{{ $child->icon ?: 'fa-solid fa-link' }} text-stikes-600 text-xs w-4 text-center"></i>
                                             <span>{{ $child->title }}</span>
                                             @if($child->is_external)
@@ -103,7 +107,7 @@
                             <!-- Single Link Menu -->
                             <a href="{{ $menu->url }}" 
                                @if($menu->is_external) target="_blank" @endif 
-                               class="flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-stikes-700 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all">
+                               class="flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-stikes-700 px-3 py-2 rounded-lg hover:bg-slate-100 transition-all">
                                 <i class="{{ $menu->icon ?: 'fa-solid fa-link' }} text-stikes-600"></i>
                                 <span>{{ $menu->title }}</span>
                             </a>
