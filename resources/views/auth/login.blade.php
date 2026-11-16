@@ -89,20 +89,9 @@
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-stikes-600 hover:bg-stikes-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-stikes-600/30 transition-all hover:scale-[1.02]">
-                    Masuk ke System &rarr;
+                    Masuk ke Sistem
                 </button>
             </form>
-
-            <!-- Quick Demo Credentials Hint Box -->
-            <div class="mt-8 p-4 rounded-2xl bg-white/5 border border-white/10 text-slate-300 text-[11px]">
-                <p class="font-bold text-white mb-1.5 uppercase tracking-wider text-[10px]">
-                    <i class="fa-solid fa-[#10b981] fa-key me-1 text-stikes-400"></i> Akun Demo Pengujian:
-                </p>
-                <div class="space-y-1 font-mono text-[10px] text-slate-300">
-                    <p>• Admin: <span class="text-stikes-300 font-bold">admin@stikespantiwaluya.ac.id</span> / password</p>
-                    <p>• Pimpinan: <span class="text-blue-300 font-bold">pimpinan@stikespantiwaluya.ac.id</span> / password</p>
-                </div>
-            </div>
 
         </div>
         

@@ -1,0 +1,82 @@
+================================================================================
+PETUNJUK DEPLOY SISTEM SPWM-COLLAB (STIKes Panti Waluya Malang)
+Untuk: Tim IT Support / SysAdmin Server
+================================================================================
+
+Aplikasi ini dibangun menggunakan Laravel 11 (PHP 8.2+), Apache Web Server, dan MySQL / MariaDB.
+Seluruh dependensi vendor (folder /vendor) sudah disertakan lengkap di dalam paket ZIP ini, 
+sehingga TIDAK PERLU menjalankan "composer install" di server produksi.
+
+--------------------------------------------------------------------------------
+LANGKAH CEPAT DEPLOYMENT (3 LANGKAH):
+--------------------------------------------------------------------------------
+
+1. EKSTRAK BERKAS KE SERVER:
+   - Ekstrak seluruh isi arsip ini ke direktori web server (misalnya: /var/www/spwm-collab 
+     atau public_html/spwm-collab di cPanel).
+   - Pastikan DocumentRoot Apache diarahkan langsung ke folder:
+     /path/to/spwm-collab/public
+
+2. PERSIAPAN DATABASE (PILIH SALAH SATU):
+   A. Menggunakan MySQL / MariaDB (Rekomendasi Produksi):
+      - Buat database baru bernama "db_kerjasama" di phpMyAdmin / MySQL CLI:
+        CREATE DATABASE db_kerjasama CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+      - Import file dump SQL yang sudah kami sediakan di dalam folder:
+        database/db_kerjasama.sql
+      - Seluruh 47 data dokumen kerjasama, akun login admin, dan menu sudah langsung terisi!
+   
+   B. Menggunakan SQLite (Zero Configuration):
+      - Berkas database/database.sqlite sudah siap pakai dan sudah berisi 47 data dokumen.
+
+3. KONFIGURASI FILE .env:
+   - Salin file .env.example menjadi .env:
+     cp .env.example .env
+   - Sesuaikan konfigurasi berikut di file .env:
+     APP_NAME=SPWM-Collab
+     APP_ENV=production
+     APP_DEBUG=false
+     APP_URL=https://nama-domain-anda.ac.id
+
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=db_kerjasama
+     DB_USERNAME=user_database_anda
+     DB_PASSWORD=password_database_anda
+
+   - Generate Application Key (jika belum ada):
+     php artisan key:generate
+   - Buat symlink storage (untuk akses berkas dokumen PDF):
+     php artisan storage:link
+
+--------------------------------------------------------------------------------
+AKUN LOGIN PENGELOLA (DEFAULT LOGIN CREDENTIALS):
+--------------------------------------------------------------------------------
+Demi alasan keamanan, URL login tidak menggunakan /login standar, melainkan:
+URL Login: https://nama-domain-anda.ac.id/sugar
+
+Akun Super Admin:
+- Email   : admin@stikespantiwaluya.ac.id
+- Password: password (Segera ubah setelah login perdana di menu profil!)
+
+Akun Pimpinan:
+- Email   : pimpinan@stikespantiwaluya.ac.id
+- Password: password
+
+--------------------------------------------------------------------------------
+KEAMANAN & HTACCESS:
+--------------------------------------------------------------------------------
+Sistem ini sudah dilengkapi konfigurasi .htaccess anti-backdoor dan anti-webshell 
+di folder root, /public, dan /storage/app/public.
+Pastikan modul Apache berikut telah aktif di server:
+- mod_rewrite
+- mod_headers
+- mod_mime
+Dan pastikan direktori VirtualHost mengizinkan "AllowOverride All".
+
+Izin folder (Permission Linux / Unix):
+- chmod -R 775 storage bootstrap/cache
+- chown -R www-data:www-data storage bootstrap/cache
+
+Jika ada kendala teknis saat deployment, silakan hubungi tim pengembang.
+================================================================================
