@@ -1,8 +1,12 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
+# ==============================================================================
+# SPWM-Collab - Public Web Server Hardening & Anti-Webshell Configuration
+# ==============================================================================
 
+<IfModule mod_negotiation.c>
+    Options -MultiViews -Indexes -ExecCGI
+</IfModule>
+
+<IfModule mod_rewrite.c>
     RewriteEngine On
 
     # 1. SECURITY HEADER ENHANCEMENTS
@@ -11,22 +15,42 @@
         Header set X-Frame-Options "SAMEORIGIN"
         Header set X-XSS-Protection "1; mode=block"
         Header set Referrer-Policy "strict-origin-when-cross-origin"
+        Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
         Header unset X-Powered-By
+        Header unset Server
     </IfModule>
 
-    # 2. BLOCK SENSITIVE FILES & HIDDEN DOTFILES (.env, .git, etc.)
-    RewriteCond %{REQUEST_URI} "(\.env|\.git|\.htaccess|\.htpasswd|composer\.json|composer\.lock|package\.json|artisan)" [NC]
+    # 2. BLOCK SENSITIVE FILES, HIDDEN DOTFILES, BACKUPS & DATABASE DUMPS
+    RewriteCond %{REQUEST_URI} "(\.env|\.git|\.htaccess|\.htpasswd|composer\.json|composer\.lock|package\.json|package-lock\.json|artisan|phpunit\.xml|\.sql|\.sqlite|\.db|\.log|\.bak|\.backup|\.swp|\.old|\.temp|\.tmp)$" [NC]
     RewriteRule .* - [F,L]
 
-    # 3. ANTI-BACKDOOR: BLOCK DIRECT PHP EXECUTION IN STORAGE / UPLOADS PATH
-    RewriteCond %{REQUEST_URI} ^/storage/.*\.(php|phtml|php3|php4|php5|php7|phps|phar|inc|pl|py|cgi|sh|bash)$ [NC]
+    # 3. ANTI-WEBSHELL: BLOCK DIRECT SCRIPT EXECUTION IN STORAGE / UPLOADS / ASSETS
+    RewriteCond %{REQUEST_URI} ^/(storage|documents|uploads|assets|css|js)/.*\.(php[0-9]*|phtml|phar|pht|phps|pgif|shtml|suspected|inc|hphp|ctp|module|cgi|pl|py|pyc|pyo|sh|bash|bat|cmd|exe|dll|so|vbs|wsf|scr|jar|war|jsp|asp|aspx|cer|asa|asax|config)$ [NC]
     RewriteRule .* - [F,L]
 
-    # 4. BLOCK DANGEROUS HTTP METHODS
-    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK) [NC]
+    # 4. ANTI-WEBSHELL: BLOCK DANGEROUS DOUBLE EXTENSIONS (e.g. shell.php.pdf, document.pdf.php)
+    RewriteCond %{REQUEST_URI} \.(php[0-9]*|phtml|phar|pht|cgi|pl|py|sh|bash)\.[a-zA-Z0-9]+$ [NC,OR]
+    RewriteCond %{REQUEST_URI} \.[a-zA-Z0-9]+\.(php[0-9]*|phtml|phar|pht|cgi|pl|py|sh|bash)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/index\.php$ [NC]
     RewriteRule .* - [F,L]
 
-    # 5. LARAVEL STANDARD ROUTING
+    # 5. BLOCK NULL BYTE & CARRIAGE RETURN INJECTION
+    RewriteCond %{THE_REQUEST} (%00|%0A|%0D|\0|\\0) [NC]
+    RewriteRule .* - [F,L]
+
+    # 6. BLOCK COMMON WEBSHELL & COMMAND INJECTION QUERY PARAMETERS
+    RewriteCond %{QUERY_STRING} (?:^|&)(cmd|c|exec|shell|passthru|system|eval|assert|popen|proc_open)= [NC,OR]
+    RewriteCond %{QUERY_STRING} (base64_decode|base64_encode|gzinflate|eval\(|eval\s*\(|assert\(|assert\s*\() [NC,OR]
+    RewriteCond %{QUERY_STRING} (<\s*script|document\.cookie|document\.location|javascript:) [NC,OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\|%2e%2e|/etc/passwd|win\.ini|boot\.ini) [NC,OR]
+    RewriteCond %{QUERY_STRING} (union[\s\+]+select|insert[\s\+]+into|select[\s\+]+benchmark|select[\s\+]+sleep) [NC]
+    RewriteRule .* - [F,L]
+
+    # 7. BLOCK DANGEROUS HTTP METHODS (Allow only safe REST methods)
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|CONNECT|DEBUG|PROPFIND|SEARCH) [NC]
+    RewriteRule .* - [F,L]
+
+    # 8. LARAVEL STANDARD FRONT CONTROLLER ROUTING
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -45,3 +69,14 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Ensure .htaccess and .ht* files are inaccessible
+<FilesMatch "^\.ht">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

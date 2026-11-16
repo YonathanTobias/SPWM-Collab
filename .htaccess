@@ -1,14 +1,40 @@
+# ==============================================================================
+# SPWM-Collab - Enterprise Apache Root Security Configuration
+# Protects against Web Shells, Backdoors, LFI, and Unauthorized Access
+# ==============================================================================
+
+Options -Indexes -ExecCGI
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # 1. BLOCK DIRECT ACCESS TO CRITICAL LARAVEL DIRECTORIES & FILES
-    RewriteCond %{REQUEST_URI} ^/(app|bootstrap|config|database|resources|routes|storage|tests|vendor|\.env|\.git|composer\.) [NC]
+    # 1. BLOCK DIRECT ACCESS TO CRITICAL LARAVEL DIRECTORIES & HIDDEN FILES
+    RewriteCond %{REQUEST_URI} ^/(app|bootstrap|config|database|resources|routes|storage|tests|vendor|node_modules|\.env|\.git|\.htaccess|\.htpasswd|composer\.|package\.|artisan|phpunit\.) [NC]
     RewriteRule .* - [F,L]
 
-    # 2. REDIRECT ALL TRAFFIC TO PUBLIC FOLDER
+    # 2. BLOCK EXECUTABLE SCRIPTS & DANGEROUS EXTENSIONS OUTSIDE PUBLIC
+    RewriteCond %{REQUEST_URI} \.(php[0-9]*|phtml|phar|pht|phps|pgif|shtml|inc|hphp|ctp|cgi|pl|py|sh|bash|bat|cmd|exe|dll|so|asp|aspx|jsp)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/public/index\.php$ [NC]
+    RewriteRule .* - [F,L]
+
+    # 3. BLOCK COMMON WEBSHELL & INJECTION QUERY STRINGS
+    RewriteCond %{QUERY_STRING} (?:^|&)(cmd|c|exec|shell|passthru|system|eval|assert|popen|proc_open)= [NC,OR]
+    RewriteCond %{QUERY_STRING} (base64_decode|base64_encode|gzinflate|eval\(|assert\() [NC,OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\|%2e%2e|/etc/passwd|win\.ini) [NC]
+    RewriteRule .* - [F,L]
+
+    # 4. REDIRECT ALL LEGITIMATE TRAFFIC TO THE PUBLIC FOLDER
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
-# Disable Directory Browsing in Root
-Options -Indexes
+# Block access to all hidden files and configuration files
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

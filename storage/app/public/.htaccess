@@ -1,0 +1,59 @@
+# ==============================================================================
+# SPWM-Collab - Storage Uploads Lockdown (.htaccess)
+# Completely disables script execution (PHP, Perl, Python, Shell, CGI, etc.)
+# ==============================================================================
+
+Options -Indexes -ExecCGI
+
+# 1. DISABLE PHP ENGINE FOR ALL MOD_PHP VERSIONS
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+<IfModule php7_module>
+    php_flag engine off
+</IfModule>
+<IfModule php8_module>
+    php_flag engine off
+</IfModule>
+
+# 2. NEUTRALIZE FASTCGI / PHP-FPM / PROXY_FCGI & BLOCK ALL EXECUTABLE SCRIPTS
+<FilesMatch "(?i)\.(php[0-9]*|phtml|phar|pht|phps|pgif|shtml|suspected|inc|hphp|ctp|module|cgi|pl|py|pyc|pyo|sh|bash|bat|cmd|exe|dll|so|vbs|wsf|scr|jar|war|jsp|asp|aspx|cer|asa|asax|config)$">
+    SetHandler default-handler
+    ForceType text/plain
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 3. BLOCK ACCESS TO ALL HIDDEN FILES (Including .htaccess to prevent override)
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 4. REMOVE ALL SCRIPT HANDLERS AND ASSOCIATED MIME TYPES
+<IfModule mod_mime.c>
+    RemoveHandler .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .inc .cgi .pl .py .sh
+    RemoveType .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .inc .cgi .pl .py .sh
+</IfModule>
+
+# 5. SECURITY HEADERS FOR DOWNLOADED USER FILES
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Content-Security-Policy "default-src 'none'; style-src 'unsafe-inline'; sandbox"
+</IfModule>
