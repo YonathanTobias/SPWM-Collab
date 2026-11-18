@@ -175,49 +175,29 @@ class DatabaseSeeder extends Seeder
             Cooperation::create($data);
         }
 
-        // Seed Parent and Sub Menus
-        $profilMenu = \App\Models\NavMenu::create([
+        // Seed Requested Menus: Beranda, Layanan, Mitra Kerjasama, SOP dan Pedoman, Kontak, Berita
+        \App\Models\NavMenu::create([
             'parent_id' => null,
-            'title' => 'Profil & Layanan',
-            'url' => '#',
-            'icon' => 'fa-solid fa-building-columns',
+            'title' => 'Beranda',
+            'url' => '/',
+            'icon' => 'fa-solid fa-house',
             'is_external' => false,
             'order' => 1,
             'is_active' => true,
         ]);
 
-        \App\Models\NavMenu::create([
-            'parent_id' => $profilMenu->id,
-            'title' => 'Website Utama STIKes',
-            'url' => 'https://stikespantiwaluya.ac.id',
-            'icon' => 'fa-solid fa-globe',
-            'is_external' => true,
-            'order' => 1,
-            'is_active' => true,
-        ]);
-
-        \App\Models\NavMenu::create([
-            'parent_id' => $profilMenu->id,
-            'title' => 'Panduan Prosedur Kerja Sama',
-            'url' => '/page/panduan-prosedur',
-            'icon' => 'fa-solid fa-file-invoice',
-            'is_external' => false,
-            'order' => 2,
-            'is_active' => true,
-        ]);
-
-        $akreditasiMenu = \App\Models\NavMenu::create([
+        $layananMenu = \App\Models\NavMenu::create([
             'parent_id' => null,
-            'title' => 'Layanan Akreditasi',
+            'title' => 'Layanan',
             'url' => '#',
-            'icon' => 'fa-solid fa-certificate',
+            'icon' => 'fa-solid fa-layer-group',
             'is_external' => false,
             'order' => 2,
             'is_active' => true,
         ]);
 
         \App\Models\NavMenu::create([
-            'parent_id' => $akreditasiMenu->id,
+            'parent_id' => $layananMenu->id,
             'title' => 'Sistem Rekapitulasi Borang',
             'url' => '/dashboard',
             'icon' => 'fa-solid fa-chart-pie',
@@ -227,27 +207,75 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\NavMenu::create([
-            'parent_id' => $akreditasiMenu->id,
-            'title' => 'Portal Resmi LAM-PTKes',
-            'url' => 'https://lamptkes.org',
-            'icon' => 'fa-solid fa-arrow-up-right-from-square',
+            'parent_id' => $layananMenu->id,
+            'title' => 'Website Utama STIKes',
+            'url' => 'https://stikespantiwaluya.ac.id',
+            'icon' => 'fa-solid fa-globe',
             'is_external' => true,
             'order' => 2,
             'is_active' => true,
         ]);
 
-        // Berita & Informasi Menu
+        \App\Models\NavMenu::create([
+            'parent_id' => $layananMenu->id,
+            'title' => 'Portal Resmi LAM-PTKes',
+            'url' => 'https://lamptkes.org',
+            'icon' => 'fa-solid fa-arrow-up-right-from-square',
+            'is_external' => true,
+            'order' => 3,
+            'is_active' => true,
+        ]);
+
         \App\Models\NavMenu::create([
             'parent_id' => null,
-            'title' => 'Berita & Kegiatan',
-            'url' => '/berita',
-            'icon' => 'fa-solid fa-newspaper',
+            'title' => 'Mitra Kerjasama',
+            'url' => '/#katalog',
+            'icon' => 'fa-solid fa-handshake',
             'is_external' => false,
             'order' => 3,
             'is_active' => true,
         ]);
 
-        // Seed Sample CMS Static Page
+        \App\Models\NavMenu::create([
+            'parent_id' => null,
+            'title' => 'SOP dan Pedoman',
+            'url' => '/page/sop-dan-pedoman',
+            'icon' => 'fa-solid fa-book-bookmark',
+            'is_external' => false,
+            'order' => 4,
+            'is_active' => true,
+        ]);
+
+        \App\Models\NavMenu::create([
+            'parent_id' => null,
+            'title' => 'Kontak',
+            'url' => '/#kontak',
+            'icon' => 'fa-solid fa-envelope-open-text',
+            'is_external' => false,
+            'order' => 5,
+            'is_active' => true,
+        ]);
+
+        \App\Models\NavMenu::create([
+            'parent_id' => null,
+            'title' => 'Berita',
+            'url' => '/berita',
+            'icon' => 'fa-solid fa-newspaper',
+            'is_external' => false,
+            'order' => 6,
+            'is_active' => true,
+        ]);
+
+        // Seed Sample CMS Static Pages
+        \App\Models\Page::updateOrCreate(
+            ['slug' => 'sop-dan-pedoman'],
+            [
+                'title' => 'SOP dan Pedoman Kerja Sama Institusi',
+                'content' => "STANDAR OPERASIONAL PROSEDUR (SOP) & PEDOMAN KERJA SAMA\nSTIKes Panti Waluya Malang\n\n1. TUJUAN\nPedoman ini menjadi acuan baku bagi seluruh unit kerja di lingkungan STIKes Panti Waluya Malang dan mitra eksternal dalam menginisiasi, menyusun, menandatangani, dan mengevaluasi dokumen kerja sama (MoU, MoA, dan Implementation Arrangement).\n\n2. LANDASAN HUKUM & STANDAR MUTU\n- Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi tentang Standar Nasional Pendidikan Tinggi.\n- Panduan Penyusunan Kerja Sama Perguruan Tinggi Direktorat Jenderal Pendidikan Tinggi Kemendikbudristek.\n- Instrumen Akreditasi Institusi & Program Studi Lembaga Akreditasi Mandiri Pendidikan Tinggi Kesehatan (LAM-PTKes).\n\n3. PROSEDUR OPERASIONAL BAKU\na. Tahap Inisiasi:\nUnit kerja pengusul atau calon mitra mengajukan permohonan kerja sama beserta Kerangka Acuan Kerja (TOR) atau surat resmi.\nb. Tahap Telaah Hukum & Substansi:\nBagian Kerja Sama menelaah kesesuaian klausul hukum, hak dan kewajiban para pihak, serta keselarasan dengan kalender akademik.\nc. Tahap Penandatanganan:\nNaskah kesepakatan difinalkan dan ditandatangani oleh Ketua STIKes Panti Waluya Malang dan Pimpinan Mitra secara fisik maupun digital tersertifikasi.\nd. Tahap Pelaksanaan & Pelaporan:\nUnit pelaksana menyusun Implementation Arrangement (IA) dan mengunggah dokumen bukti pelaksanaan kerja sama ke sistem SPWM-Collab guna pelaporan akreditasi.\n\nKontak Bagian Kerja Sama:\nEmail: kerjasama@stikespantiwaluya.ac.id\nTelepon: (0341) 369003\nAlamat: Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang",
+                'is_published' => true,
+            ]
+        );
+
         \App\Models\Page::updateOrCreate(
             ['slug' => 'panduan-prosedur'],
             [

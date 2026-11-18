@@ -61,7 +61,7 @@
     </section>
 
     <!-- Public Directory Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <section id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 scroll-mt-24">
         
         <!-- Filter Controls Bar -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 mb-8">
