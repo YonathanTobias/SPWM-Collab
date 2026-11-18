@@ -55,7 +55,7 @@
                 </a>
 
                 @php
-                    $topNavMenus = \App\Models\NavMenu::with('activeChildren')
+                    $topNavMenus = \App\Models\NavMenu::with(['activeChildren.activeChildren'])
                         ->whereNull('parent_id')
                         ->where('is_active', true)
                         ->orderBy('order', 'asc')
@@ -78,7 +78,7 @@
                                     <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-200" :class="open ? 'rotate-180 text-stikes-600' : ''"></i>
                                 </button>
 
-                                <!-- Sub-menu Dropdown List -->
+                                <!-- Level 2 Sub-menu Dropdown List -->
                                 <div x-show="open" 
                                      x-transition:enter="transition ease-out duration-100"
                                      x-transition:enter-start="opacity-0 scale-95"
@@ -87,19 +87,59 @@
                                      x-transition:leave-start="opacity-100 scale-100"
                                      x-transition:leave-end="opacity-0 scale-95"
                                      x-cloak
-                                     class="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50">
+                                     class="absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-xl border border-slate-200 py-1.5 z-50">
                                     
                                     @foreach($menu->activeChildren as $child)
-                                        <a href="{{ $child->url }}" 
-                                           @if($child->is_external) target="_blank" @endif
-                                           @click="open = false"
-                                           class="flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-stikes-50 hover:text-stikes-800 transition-colors">
-                                            <i class="{{ $child->icon ?: 'fa-solid fa-link' }} text-stikes-600 text-xs w-4 text-center"></i>
-                                            <span>{{ $child->title }}</span>
-                                            @if($child->is_external)
-                                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400 ms-auto"></i>
-                                            @endif
-                                        </a>
+                                        @if($child->activeChildren->count() > 0)
+                                            <!-- Level 2 Item with Level 3 Sub-Sub-Menu (Flyout on Hover/Click) -->
+                                            <div class="relative group/sub" x-data="{ subFlyout: false }" @mouseenter="subFlyout = true" @mouseleave="subFlyout = false">
+                                                <button type="button" 
+                                                        @click="subFlyout = !subFlyout"
+                                                        class="w-full flex items-center justify-between px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-stikes-50 hover:text-stikes-800 transition-colors">
+                                                    <div class="flex items-center gap-2.5">
+                                                        <i class="{{ $child->icon ?: 'fa-solid fa-folder' }} text-stikes-600 text-xs w-4 text-center"></i>
+                                                        <span>{{ $child->title }}</span>
+                                                    </div>
+                                                    <i class="fa-solid fa-chevron-right text-[9px] text-slate-400 group-hover/sub:text-stikes-600 transition-transform"></i>
+                                                </button>
+
+                                                <!-- Level 3 Flyout List -->
+                                                <div x-show="subFlyout" 
+                                                     x-transition:enter="transition ease-out duration-100"
+                                                     x-transition:enter-start="opacity-0 translate-x-1"
+                                                     x-transition:enter-end="opacity-100 translate-x-0"
+                                                     x-transition:leave="transition ease-in duration-75"
+                                                     x-transition:leave-start="opacity-100 translate-x-0"
+                                                     x-transition:leave-end="opacity-0 translate-x-1"
+                                                     x-cloak
+                                                     class="absolute left-full top-0 ml-1 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 py-1.5 z-50">
+                                                    @foreach($child->activeChildren as $subChild)
+                                                        <a href="{{ $subChild->url }}" 
+                                                           @if($subChild->is_external) target="_blank" @endif
+                                                           @click="open = false; subFlyout = false"
+                                                           class="flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-stikes-50 hover:text-stikes-800 transition-colors">
+                                                            <i class="{{ $subChild->icon ?: 'fa-solid fa-link' }} text-stikes-600 text-xs w-4 text-center"></i>
+                                                            <span>{{ $subChild->title }}</span>
+                                                            @if($subChild->is_external)
+                                                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400 ms-auto"></i>
+                                                            @endif
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @else
+                                            <!-- Standard Level 2 Link -->
+                                            <a href="{{ $child->url }}" 
+                                               @if($child->is_external) target="_blank" @endif
+                                               @click="open = false"
+                                               class="flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-stikes-50 hover:text-stikes-800 transition-colors">
+                                                <i class="{{ $child->icon ?: 'fa-solid fa-link' }} text-stikes-600 text-xs w-4 text-center"></i>
+                                                <span>{{ $child->title }}</span>
+                                                @if($child->is_external)
+                                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400 ms-auto"></i>
+                                                @endif
+                                            </a>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
@@ -147,7 +187,7 @@
 
             @foreach($topNavMenus as $menu)
                 @if($menu->activeChildren->count() > 0)
-                    <div x-data="{ subOpen: true }" class="space-y-1">
+                    <div x-data="{ subOpen: false }" class="space-y-1">
                         <button @click="subOpen = !subOpen" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-800 bg-slate-100/80 hover:bg-slate-200/80 transition-colors">
                             <div class="flex items-center gap-2">
                                 <i class="{{ $menu->icon ?: 'fa-solid fa-folder' }} text-stikes-600"></i>
@@ -158,13 +198,38 @@
                         
                         <div x-show="subOpen" class="pl-4 space-y-1 border-l-2 border-stikes-200 ms-3 py-1">
                             @foreach($menu->activeChildren as $child)
-                                <a href="{{ $child->url }}" @if($child->is_external) target="_blank" @endif class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-stikes-700 hover:bg-slate-100 transition-colors">
-                                    <i class="{{ $child->icon ?: 'fa-solid fa-link' }} text-stikes-600 text-xs w-4 text-center"></i>
-                                    <span>{{ $child->title }}</span>
-                                    @if($child->is_external)
-                                        <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400 ms-auto"></i>
-                                    @endif
-                                </a>
+                                @if($child->activeChildren->count() > 0)
+                                    <!-- Level 2 Mobile with Sub-Sub-Menu Accordion -->
+                                    <div x-data="{ subSubOpen: false }" class="space-y-1">
+                                        <button @click="subSubOpen = !subSubOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
+                                            <div class="flex items-center gap-2">
+                                                <i class="{{ $child->icon ?: 'fa-solid fa-folder' }} text-amber-600 text-xs w-4 text-center"></i>
+                                                <span>{{ $child->title }}</span>
+                                            </div>
+                                            <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 transition-transform" :class="subSubOpen ? 'rotate-180 text-amber-600' : ''"></i>
+                                        </button>
+
+                                        <div x-show="subSubOpen" class="pl-4 space-y-1 border-l-2 border-purple-200 ms-3 py-1">
+                                            @foreach($child->activeChildren as $subChild)
+                                                <a href="{{ $subChild->url }}" @if($subChild->is_external) target="_blank" @endif class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-stikes-700 hover:bg-slate-100 transition-colors">
+                                                    <i class="{{ $subChild->icon ?: 'fa-solid fa-link' }} text-purple-600 text-xs w-4 text-center"></i>
+                                                    <span>{{ $subChild->title }}</span>
+                                                    @if($subChild->is_external)
+                                                        <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400 ms-auto"></i>
+                                                    @endif
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @else
+                                    <a href="{{ $child->url }}" @if($child->is_external) target="_blank" @endif class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-stikes-700 hover:bg-slate-100 transition-colors">
+                                        <i class="{{ $child->icon ?: 'fa-solid fa-link' }} text-stikes-600 text-xs w-4 text-center"></i>
+                                        <span>{{ $child->title }}</span>
+                                        @if($child->is_external)
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400 ms-auto"></i>
+                                        @endif
+                                    </a>
+                                @endif
                             @endforeach
                         </div>
                     </div>

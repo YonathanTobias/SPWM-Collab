@@ -12,19 +12,66 @@ class NavMenuController extends Controller
      */
     public function index()
     {
-        $menus = NavMenu::with(['parent', 'children'])
+        // Fetch hierarchical tree (Level 1 -> Level 2 -> Level 3)
+        $rootMenus = NavMenu::with(['children.children', 'parent.parent'])
+            ->whereNull('parent_id')
             ->orderBy('order', 'asc')
             ->orderBy('created_at', 'asc')
             ->get();
 
-        // Get parent candidates (top-level menus only)
-        $parentMenus = NavMenu::whereNull('parent_id')->orderBy('order', 'asc')->get();
+        $orderedMenus = collect();
+        foreach ($rootMenus as $root) {
+            $orderedMenus->push($root);
+            foreach ($root->children as $child) {
+                $orderedMenus->push($child);
+                foreach ($child->children as $grandchild) {
+                    $orderedMenus->push($grandchild);
+                }
+            }
+        }
 
-        return view('admin.nav_menus.index', compact('menus', 'parentMenus'));
+        // Catch any orphan menus (e.g. if parent was corrupted or detached)
+        $orphanMenus = NavMenu::with(['parent.parent'])
+            ->whereNotNull('parent_id')
+            ->whereNotIn('id', $orderedMenus->pluck('id'))
+            ->get();
+
+        $menus = $orderedMenus->concat($orphanMenus);
+
+        // Parent options for creating/editing:
+        // 1. Level 1 (Menu Utama) -> for creating Sub-Menu (Level 2)
+        $level1Menus = NavMenu::whereNull('parent_id')
+            ->orderBy('order', 'asc')
+            ->get();
+
+        // 2. Level 2 (Sub-Menu) -> for creating Sub-Sub-Menu (Level 3)
+        $level2Menus = NavMenu::whereNotNull('parent_id')
+            ->whereHas('parent', function ($q) {
+                $q->whereNull('parent_id');
+            })
+            ->with('parent')
+            ->orderBy('order', 'asc')
+            ->get();
+
+        // Statistics
+        $totalCount = NavMenu::count();
+        $level1Count = NavMenu::whereNull('parent_id')->count();
+        $level2Count = $level2Menus->count();
+        $level3Count = $totalCount - $level1Count - $level2Count;
+
+        return view('admin.nav_menus.index', compact(
+            'menus',
+            'level1Menus',
+            'level2Menus',
+            'totalCount',
+            'level1Count',
+            'level2Count',
+            'level3Count'
+        ));
     }
 
     /**
-     * Store new menu item (Parent or Sub-Menu).
+     * Store new menu item (Menu Utama, Sub-Menu, or Sub-Sub-Menu).
      */
     public function store(Request $request)
     {
@@ -36,9 +83,23 @@ class NavMenuController extends Controller
             'order' => 'nullable|integer',
             'is_external' => 'boolean',
             'is_active' => 'boolean',
+        ], [
+            'title.required' => 'Nama menu wajib diisi.',
+            'url.required' => 'Tautan URL menu wajib diisi.',
+            'parent_id.exists' => 'Induk menu yang dipilih tidak valid.',
         ]);
 
-        $validated['parent_id'] = $request->input('parent_id') ?: null;
+        $parentId = $request->input('parent_id') ?: null;
+
+        // Depth check: max 3 levels (Menu Utama -> Sub-Menu -> Sub-Sub-Menu)
+        if ($parentId) {
+            $parent = NavMenu::with('parent.parent')->find($parentId);
+            if ($parent && $parent->parent && !is_null($parent->parent->parent_id)) {
+                return back()->with('error', 'Batas maksimal kedalaman navigasi adalah 3 tingkat (Menu Utama › Sub-Menu › Sub-Sub-Menu).');
+            }
+        }
+
+        $validated['parent_id'] = $parentId;
         $validated['is_external'] = $request->has('is_external');
         $validated['is_active'] = $request->has('is_active');
         $validated['order'] = $validated['order'] ?? (NavMenu::max('order') + 1);
@@ -46,7 +107,7 @@ class NavMenuController extends Controller
         NavMenu::create($validated);
 
         return redirect()->route('admin.nav_menus.index')
-            ->with('success', 'Menu navbar baru berhasil ditambahkan.');
+            ->with('success', 'Menu navigasi baru berhasil ditambahkan.');
     }
 
     /**
@@ -64,15 +125,34 @@ class NavMenuController extends Controller
             'order' => 'nullable|integer',
             'is_external' => 'boolean',
             'is_active' => 'boolean',
+        ], [
+            'title.required' => 'Nama menu wajib diisi.',
+            'url.required' => 'Tautan URL menu wajib diisi.',
+            'parent_id.exists' => 'Induk menu yang dipilih tidak valid.',
         ]);
 
-        // Prevent setting parent_id to itself
-        if ($request->input('parent_id') == $id) {
-            $validated['parent_id'] = null;
-        } else {
-            $validated['parent_id'] = $request->input('parent_id') ?: null;
+        $parentId = $request->input('parent_id') ?: null;
+
+        // Prevent setting parent to itself
+        if ($parentId == $id) {
+            return back()->with('error', 'Menu tidak dapat menjadi induk bagi dirinya sendiri.');
         }
 
+        // Prevent setting parent to its own descendants
+        if ($parentId) {
+            $descendantIds = $this->getDescendantIds($menu);
+            if (in_array($parentId, $descendantIds)) {
+                return back()->with('error', 'Tidak dapat memilih sub-menu turunan sebagai induk menu.');
+            }
+
+            // Depth check: max 3 levels
+            $targetParent = NavMenu::with('parent.parent')->find($parentId);
+            if ($targetParent && $targetParent->parent && !is_null($targetParent->parent->parent_id)) {
+                return back()->with('error', 'Batas maksimal kedalaman navigasi adalah 3 tingkat (Menu Utama › Sub-Menu › Sub-Sub-Menu).');
+            }
+        }
+
+        $validated['parent_id'] = $parentId;
         $validated['is_external'] = $request->has('is_external');
         $validated['is_active'] = $request->has('is_active');
 
@@ -83,15 +163,16 @@ class NavMenuController extends Controller
     }
 
     /**
-     * Delete menu item.
+     * Delete menu item (cascading deletes children).
      */
     public function destroy($id)
     {
         $menu = NavMenu::findOrFail($id);
+        $title = $menu->title;
         $menu->delete();
 
         return redirect()->route('admin.nav_menus.index')
-            ->with('success', 'Menu navbar telah dihapus.');
+            ->with('success', "Menu '{$title}' dan seluruh sub-menu di bawahnya telah dihapus.");
     }
 
     /**
@@ -106,5 +187,19 @@ class NavMenuController extends Controller
 
         return redirect()->route('admin.nav_menus.index')
             ->with('success', "Status menu '{$menu->title}' telah {$statusText}.");
+    }
+
+    /**
+     * Helper to collect all descendant IDs of a menu.
+     */
+    private function getDescendantIds(NavMenu $menu): array
+    {
+        $ids = [];
+        $children = NavMenu::where('parent_id', $menu->id)->get();
+        foreach ($children as $child) {
+            $ids[] = $child->id;
+            $ids = array_merge($ids, $this->getDescendantIds($child));
+        }
+        return $ids;
     }
 }
