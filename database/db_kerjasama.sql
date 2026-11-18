@@ -76,10 +76,11 @@ TRUNCATE TABLE `nav_menus`;
 INSERT INTO `nav_menus` (`id`, `parent_id`, `title`, `url`, `icon`, `is_external`, `order`, `is_active`, `created_at`, `updated_at`) VALUES
 ('1', NULL, 'Profil & Layanan', '#', 'fa-solid fa-building-columns', '0', '1', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
 ('2', '1', 'Website Utama STIKes', 'https://stikespantiwaluya.ac.id', 'fa-solid fa-globe', '1', '1', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
-('3', '1', 'Panduan Prosedur Kerja Sama', '#', 'fa-solid fa-file-invoice', '0', '2', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
+('3', '1', 'Panduan Prosedur Kerja Sama', '/page/panduan-prosedur', 'fa-solid fa-file-invoice', '0', '2', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
 ('4', NULL, 'Layanan Akreditasi', '#', 'fa-solid fa-certificate', '0', '2', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
 ('5', '4', 'Sistem Rekapitulasi Borang', '/dashboard', 'fa-solid fa-chart-pie', '0', '1', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
-('6', '4', 'Portal Resmi LAM-PTKes', 'https://lamptkes.org', 'fa-solid fa-arrow-up-right-from-square', '1', '2', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46');
+('6', '4', 'Portal Resmi LAM-PTKes', 'https://lamptkes.org', 'fa-solid fa-arrow-up-right-from-square', '1', '2', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
+('7', NULL, 'Berita & Kegiatan', '/berita', 'fa-solid fa-newspaper', '0', '3', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46');
 
 -- ---------------------------------------------------------
 -- Data for table `site_settings` (8 rows)
@@ -112,6 +113,50 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Data for table `sessions` (0 rows)
 -- ---------------------------------------------------------
 TRUNCATE TABLE `sessions`;
+
+-- ---------------------------------------------------------
+-- Structure & Data for table `posts` (Berita CMS)
+-- ---------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `excerpt` text DEFAULT NULL,
+  `content` longtext NOT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
+  `author_id` bigint(20) unsigned DEFAULT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT 1,
+  `published_at` timestamp NULL DEFAULT NULL,
+  `views_count` int(10) unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `posts_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE TABLE `posts`;
+INSERT INTO `posts` (`id`, `title`, `slug`, `excerpt`, `content`, `thumbnail`, `author_id`, `is_published`, `published_at`, `views_count`, `created_at`, `updated_at`) VALUES
+('1', 'Penandatanganan Perjanjian Kerja Sama Praktek Klinik dengan RSUD dr. Saiful Anwar Malang', 'penandatanganan-mou-praktek-klinik-rsud-saiful-anwar', 'STIKes Panti Waluya Malang resmi memperpanjang kemitraan strategis dengan RSUD dr. Saiful Anwar Malang guna penyediaan wahana praktek klinik keperawatan.', 'MALANG – STIKes Panti Waluya Malang resmi menandatangani pembaruan naskah kesepakatan bersama (MoU dan MoA) dengan RSUD dr. Saiful Anwar Malang pada hari ini.\n\nKerja sama ini berfokus pada penyediaan sarana praktek klinik lapangan, pembimbingan preseptor klinis bersertifikasi, serta kolaborasi riset kesehatan antara dosen dan tenaga medis rumah sakit.\n\nMelalui kerja sama ini, mahasiswa program studi Keperawatan dan Farmasi mendapatkan akses pembelajaran langsung di rumah sakit rujukan utama Jawa Timur dengan standar pelayanan terbaik.', NULL, '1', '1', '2026-11-16 10:00:00', '142', '2026-11-16 10:00:00', '2026-11-16 10:00:00'),
+('2', 'Kolaborasi Internasional: Pembahasan Program Pertukaran Mahasiswa dan Dosen Tamu', 'kolaborasi-internasional-program-pertukaran-mahasiswa-thailand', 'Penjajakan kerja sama internasional bidang keperawatan kesehatan masyarakat dan publikasi riset terindeks internasional bersama mitra universitas luar negeri.', 'MALANG – Dalam rangka penguatan internasionalisasi institusi dan pemenuhan kriteria akreditasi unggul, STIKes Panti Waluya Malang menggelar pertemuan daring penjajakan kerja sama internasional.\n\nFokus kegiatan meliputi implementasi joint research bidang kesehatan masyarakat, visiting professor, serta student exchange program semester pendek bagi mahasiswa sarjana keperawatan.\n\nPimpinan STIKes Panti Waluya menyampaikan bahwa langkah ini merupakan bagian dari visi jangka panjang mencetak tenaga kesehatan yang kompeten dan berdaya saing global.', NULL, '1', '1', '2026-11-13 14:30:00', '98', '2026-11-13 14:30:00', '2026-11-13 14:30:00');
+
+-- ---------------------------------------------------------
+-- Structure & Data for table `pages` (Halaman Statis CMS)
+-- ---------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `content` longtext NOT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `pages_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE TABLE `pages`;
+INSERT INTO `pages` (`id`, `title`, `slug`, `content`, `is_published`, `created_at`, `updated_at`) VALUES
+('1', 'Panduan Prosedur Pengajuan Kerja Sama Institusi', 'panduan-prosedur', 'PANDUAN PROSEDUR KERJA SAMA (MoU, MoA, dan IA)\nSTIKes Panti Waluya Malang\n\n1. PENDAHULUAN\nDalam rangka meningkatkan mutu penyelenggaraan Tri Dharma Perguruan Tinggi (Pendidikan, Penelitian, dan Pengabdian kepada Masyarakat), STIKes Panti Waluya Malang senantiasa membuka peluang kolaborasi seluas-luasnya dengan Rumah Sakit, Puskesmas, Dinas Kesehatan, Industri Farmasi, serta Perguruan Tinggi baik di dalam maupun luar negeri.\n\n2. TAHAPAN PENGAJUAN KERJA SAMA\na. Pengajuan Permohonan / Inisiasi\nCalon mitra dapat mengirimkan surat permohonan resmi dan draft usulan kerja sama melalui email: kerjasama@stikespantiwaluya.ac.id atau bersurat langsung ke alamat kampus.\n\nb. Telaah & Pembahasan Dokumen\nBagian Kerja Sama dan Program Studi terkait akan melakukan penelaahan ruang lingkup kerja sama serta mencocokkan kalender akademik.\n\nc. Finalisasi Draft Naskah (MoU / MoA / IA)\nNaskah kesepakatan difinalkan dan diberi nomor dokumen resmi institusi.\n\nd. Penandatanganan (Signing Ceremony)\nPenandatanganan dokumen kerja sama oleh Pimpinan STIKes Panti Waluya Malang dan Direktur/Pimpinan Institusi Mitra.\n\ne. Pengarsipan & Pelaporan Borang\nDokumen resmi diarsipkan secara digital di sistem SPWM-Collab untuk pemenuhan data akreditasi LAM-PTKes.\n\nKontak Bagian Kerja Sama:\nEmail: kerjasama@stikespantiwaluya.ac.id\nTelepon: (0341) 369003\nAlamat: Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang', '1', '2026-11-16 08:25:46', '2026-11-16 08:25:46');
 
 -- ---------------------------------------------------------
 -- Data for table `cache` (0 rows)

@@ -199,7 +199,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\NavMenu::create([
             'parent_id' => $profilMenu->id,
             'title' => 'Panduan Prosedur Kerja Sama',
-            'url' => '#',
+            'url' => '/page/panduan-prosedur',
             'icon' => 'fa-solid fa-file-invoice',
             'is_external' => false,
             'order' => 2,
@@ -235,5 +235,57 @@ class DatabaseSeeder extends Seeder
             'order' => 2,
             'is_active' => true,
         ]);
+
+        // Berita & Informasi Menu
+        \App\Models\NavMenu::create([
+            'parent_id' => null,
+            'title' => 'Berita & Kegiatan',
+            'url' => '/berita',
+            'icon' => 'fa-solid fa-newspaper',
+            'is_external' => false,
+            'order' => 3,
+            'is_active' => true,
+        ]);
+
+        // Seed Sample CMS Static Page
+        \App\Models\Page::updateOrCreate(
+            ['slug' => 'panduan-prosedur'],
+            [
+                'title' => 'Panduan Prosedur Pengajuan Kerja Sama Institusi',
+                'content' => "PANDUAN PROSEDUR KERJA SAMA (MoU, MoA, dan IA)\nSTIKes Panti Waluya Malang\n\n1. PENDAHULUAN\nDalam rangka meningkatkan mutu penyelenggaraan Tri Dharma Perguruan Tinggi (Pendidikan, Penelitian, dan Pengabdian kepada Masyarakat), STIKes Panti Waluya Malang senantiasa membuka peluang kolaborasi seluas-luasnya dengan Rumah Sakit, Puskesmas, Dinas Kesehatan, Industri Farmasi, serta Perguruan Tinggi baik di dalam maupun luar negeri.\n\n2. TAHAPAN PENGAJUAN KERJA SAMA\na. Pengajuan Permohonan / Inisiasi\nCalon mitra dapat mengirimkan surat permohonan resmi dan draft usulan kerja sama melalui email: kerjasama@stikespantiwaluya.ac.id atau bersurat langsung ke alamat kampus.\n\nb. Telaah & Pembahasan Dokumen\nBagian Kerja Sama dan Program Studi terkait akan melakukan penelaahan ruang lingkup kerja sama serta mencocokkan kalender akademik.\n\nc. Finalisasi Draft Naskah (MoU / MoA / IA)\nNaskah kesepakatan difinalkan dan diberi nomor dokumen resmi institusi.\n\nd. Penandatanganan (Signing Ceremony)\nPenandatanganan dokumen kerja sama oleh Pimpinan STIKes Panti Waluya Malang dan Direktur/Pimpinan Institusi Mitra.\n\ne. Pengarsipan & Pelaporan Borang\nDokumen resmi diarsipkan secara digital di sistem SPWM-Collab untuk pemenuhan data akreditasi LAM-PTKes.\n\nKontak Bagian Kerja Sama:\nEmail: kerjasama@stikespantiwaluya.ac.id\nTelepon: (0341) 369003\nAlamat: Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang",
+                'is_published' => true,
+            ]
+        );
+
+        // Seed Sample CMS News Articles
+        $adminUser = \App\Models\User::first();
+
+        \App\Models\Post::updateOrCreate(
+            ['slug' => 'penandatanganan-mou-praktek-klinik-rsud-saiful-anwar'],
+            [
+                'title' => 'Penandatanganan Perjanjian Kerja Sama Praktek Klinik dengan RSUD dr. Saiful Anwar Malang',
+                'excerpt' => 'STIKes Panti Waluya Malang resmi memperpanjang kemitraan strategis dengan RSUD dr. Saiful Anwar Malang guna penyediaan wahana praktek klinik keperawatan.',
+                'content' => "MALANG – STIKes Panti Waluya Malang resmi menandatangani pembaruan naskah kesepakatan bersama (MoU dan MoA) dengan RSUD dr. Saiful Anwar Malang pada hari ini.\n\nKerja sama ini berfokus pada penyediaan sarana praktek klinik lapangan, pembimbingan preseptor klinis bersertifikasi, serta kolaborasi riset kesehatan antara dosen dan tenaga medis rumah sakit.\n\nMelalui kerja sama ini, mahasiswa program studi Keperawatan dan Farmasi mendapatkan akses pembelajaran langsung di rumah sakit rujukan utama Jawa Timur dengan standar pelayanan terbaik.",
+                'thumbnail' => null,
+                'author_id' => $adminUser ? $adminUser->id : null,
+                'is_published' => true,
+                'published_at' => Carbon::now()->subDays(2),
+                'views_count' => 142,
+            ]
+        );
+
+        \App\Models\Post::updateOrCreate(
+            ['slug' => 'kolaborasi-internasional-program-pertukaran-mahasiswa-thailand'],
+            [
+                'title' => 'Kolaborasi Internasional: Pembahasan Program Pertukaran Mahasiswa dan Dosen Tamu',
+                'excerpt' => 'Penjajakan kerja sama internasional bidang keperawatan kesehatan masyarakat dan publikasi riset terindeks internasional bersama mitra universitas luar negeri.',
+                'content' => "MALANG – Dalam rangka penguatan internasionalisasi institusi dan pemenuhan kriteria akreditasi unggul, STIKes Panti Waluya Malang menggelar pertemuan daring penjajakan kerja sama internasional.\n\nFokus kegiatan meliputi implementasi joint research bidang kesehatan masyarakat, visiting professor, serta student exchange program semester pendek bagi mahasiswa sarjana keperawatan.\n\nPimpinan STIKes Panti Waluya menyampaikan bahwa langkah ini merupakan bagian dari visi jangka panjang mencetak tenaga kesehatan yang kompeten dan berdaya saing global.",
+                'thumbnail' => null,
+                'author_id' => $adminUser ? $adminUser->id : null,
+                'is_published' => true,
+                'published_at' => Carbon::now()->subDays(5),
+                'views_count' => 98,
+            ]
+        );
     }
 }

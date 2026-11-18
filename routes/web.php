@@ -7,12 +7,19 @@ use App\Http\Controllers\PublicCatalogController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
-// 1. Public Catalog Routes (No login required)
+// 1. Public Catalog & Content Routes (No login required)
 Route::get('/', [PublicCatalogController::class, 'index'])->name('public.index');
 Route::get('/cooperations/export-excel', [PublicCatalogController::class, 'exportExcel'])->name('public.exportExcel');
 Route::get('/cooperations/export-pdf', [PublicCatalogController::class, 'exportPdf'])->name('public.exportPdf');
 Route::get('/cooperations/{id}/detail', [PublicCatalogController::class, 'show'])->name('public.show');
 Route::get('/cooperations/{id}/download', [PublicCatalogController::class, 'download'])->name('public.download');
+
+// Public News & Articles (Berita Publik)
+Route::get('/berita', [\App\Http\Controllers\PublicPostController::class, 'index'])->name('public.posts.index');
+Route::get('/berita/{slug}', [\App\Http\Controllers\PublicPostController::class, 'show'])->name('public.posts.show');
+
+// Public Static Pages (Halaman Statis CMS)
+Route::get('/page/{slug}', [\App\Http\Controllers\PublicPageController::class, 'show'])->name('public.pages.show');
 
 // 2. Authentication Routes (Custom Security Slug: /sugar)
 Route::get('/sugar', [AuthController::class, 'showLoginForm'])->name('login');
@@ -49,6 +56,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/nav-menus/{id}', [\App\Http\Controllers\NavMenuController::class, 'update'])->name('admin.nav_menus.update');
     Route::delete('/admin/nav-menus/{id}', [\App\Http\Controllers\NavMenuController::class, 'destroy'])->name('admin.nav_menus.destroy');
     Route::patch('/admin/nav-menus/{id}/toggle', [\App\Http\Controllers\NavMenuController::class, 'toggleStatus'])->name('admin.nav_menus.toggle');
+    
+    // CMS Posts / Berita Management
+    Route::resource('admin/posts', \App\Http\Controllers\AdminPostController::class)->names('admin.posts')->except(['show']);
+    Route::patch('admin/posts/{id}/toggle-publish', [\App\Http\Controllers\AdminPostController::class, 'togglePublish'])->name('admin.posts.togglePublish');
+
+    // CMS Pages / Halaman Statis Management
+    Route::resource('admin/pages', \App\Http\Controllers\AdminPageController::class)->names('admin.pages')->except(['show']);
+    Route::patch('admin/pages/{id}/toggle-publish', [\App\Http\Controllers\AdminPageController::class, 'togglePublish'])->name('admin.pages.togglePublish');
     
     // Expiration Notifications
     Route::get('/admin/notifications', [AdminCooperationController::class, 'notifications'])->name('admin.notifications');

@@ -95,6 +95,20 @@
                     </a>
                 @endif
 
+                @if(in_array(Auth::user()->role, ['super_admin', 'admin']))
+                    <div class="pt-6 px-3 pb-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Konten Kampus (CMS)</div>
+                    <a href="{{ route('admin.posts.index') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.posts.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        <i class="fa-solid fa-newspaper w-4 text-center text-sm"></i>
+                        <span>Kelola Berita & Artikel</span>
+                    </a>
+                    <a href="{{ route('admin.pages.index') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.pages.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        <i class="fa-solid fa-file-lines w-4 text-center text-sm"></i>
+                        <span>Kelola Halaman Statis</span>
+                    </a>
+                @endif
+
                 <a href="{{ route('admin.notifications') }}" 
                    class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.notifications') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                     <div class="flex items-center gap-3">
