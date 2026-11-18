@@ -153,15 +153,6 @@
                             </a>
                         @endif
                     @endforeach
-
-                    @auth
-                        <div class="flex items-center gap-2 ms-2">
-                            <a href="{{ Auth::user()->role === 'pimpinan' ? route('dashboard.index') : route('admin.cooperations.index') }}" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-xl shadow-sm shadow-stikes-600/30 transition-all hover:-translate-y-0.5">
-                                <i class="fa-solid fa-gauge-high"></i>
-                                <span>Panel {{ Auth::user()->role === 'pimpinan' ? 'Pimpinan' : 'Admin' }}</span>
-                            </a>
-                        </div>
-                    @endauth
                 </div>
 
                 <!-- Mobile Hamburger Button (Visible only on mobile screens) -->
@@ -240,16 +231,6 @@
                     </a>
                 @endif
             @endforeach
-
-            <!-- Login Action for Mobile (Authenticated Users Only) -->
-            @auth
-                <div class="pt-3 border-t border-slate-200">
-                    <a href="{{ Auth::user()->role === 'pimpinan' ? route('dashboard.index') : route('admin.cooperations.index') }}" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold text-white bg-stikes-600 hover:bg-stikes-700 rounded-xl shadow-md transition-all">
-                        <i class="fa-solid fa-gauge-high"></i>
-                        <span>Panel {{ Auth::user()->role === 'pimpinan' ? 'Pimpinan' : 'Admin' }}</span>
-                    </a>
-                </div>
-            @endauth
 
         </div>
 
