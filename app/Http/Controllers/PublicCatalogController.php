@@ -64,7 +64,7 @@ class PublicCatalogController extends Controller
         $totalMou = Cooperation::where('document_type', 'MoU')->count();
         $totalMoa = Cooperation::where('document_type', 'MoA')->count();
         $totalIa = Cooperation::where('document_type', 'IA')->count();
-        $totalInternational = Cooperation::where('level', 'Internasional')->count();
+        $totalInternational = Cooperation::whereIn('level', ['Luar Negeri', 'Internasional'])->count();
 
         return view('public.index', compact(
             'cooperations',
@@ -154,7 +154,7 @@ class PublicCatalogController extends Controller
 
         $cooperations = $query->orderBy('created_at', 'desc')->get();
 
-        $filename = "Daftar_Kerjasama_STIKes_Panti_Waluya_" . date('Ymd_His') . ".csv";
+        $filename = "Daftar_Kerja_Sama_STIKes_Panti_Waluya_" . date('Ymd_His') . ".csv";
 
         $headers = [
             'Content-Type' => 'text/csv; charset=UTF-8',
@@ -171,7 +171,7 @@ class PublicCatalogController extends Controller
             fputcsv($file, [
                 'No',
                 'Nama Instansi Mitra',
-                'Tingkat (Lokal/Nasional/Internasional)',
+                'Tingkat (Dalam Negeri / Luar Negeri)',
                 'Jenis Dokumen',
                 'Nomor Surat/Dokumen',
                 'Judul / Ruang Lingkup Kerja Sama',

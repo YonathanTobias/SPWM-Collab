@@ -76,11 +76,10 @@
 
                 <!-- Level -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Tingkat Wilayah Kerjasama *</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Tingkat Wilayah Kerja Sama *</label>
                     <select name="level" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-stikes-500 focus:bg-white transition-all">
-                        <option value="Lokal" {{ old('level', $cooperation->level) == 'Lokal' ? 'selected' : '' }}>Lokal</option>
-                        <option value="Nasional" {{ old('level', $cooperation->level) == 'Nasional' ? 'selected' : '' }}>Nasional</option>
-                        <option value="Internasional" {{ old('level', $cooperation->level) == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+                        <option value="Dalam Negeri" {{ in_array(old('level', $cooperation->level), ['Dalam Negeri', 'Lokal', 'Nasional']) ? 'selected' : '' }}>Dalam Negeri (Nasional / Lokal)</option>
+                        <option value="Luar Negeri" {{ in_array(old('level', $cooperation->level), ['Luar Negeri', 'Internasional']) ? 'selected' : '' }}>Luar Negeri (Internasional)</option>
                     </select>
                 </div>
 

@@ -16,7 +16,7 @@
                 Visualisasi Data & Rekapitulasi Akreditasi
             </h2>
             <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
-                Unduh rekapitulasi data kerjasama institusi dan prodi secara cepat sesuai format borang akreditasi nasional dan internasional STIKes Panti Waluya Malang.
+                Unduh rekapitulasi data kerja sama institusi dan prodi secara cepat sesuai format borang akreditasi dalam dan luar negeri STIKes Panti Waluya Malang.
             </p>
         </div>
 
@@ -38,25 +38,25 @@
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
             <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Dokumen</div>
             <div class="text-3xl font-extrabold text-slate-900 mt-2">{{ $totalCount }}</div>
-            <div class="text-[11px] text-slate-400 mt-1">Seluruh arsip kerjasama</div>
+            <div class="text-[11px] text-slate-400 mt-1">Seluruh arsip kerja sama</div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tingkat Internasional</div>
-            <div class="text-3xl font-extrabold text-purple-600 mt-2">{{ $internasionalCount }}</div>
-            <div class="text-[11px] text-slate-400 mt-1">Mitra luar negeri</div>
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Dalam Negeri</div>
+            <div class="text-3xl font-extrabold text-blue-600 mt-2">{{ $dalamNegeriCount }}</div>
+            <div class="text-[11px] text-slate-400 mt-1">Mitra instansi nasional & lokal</div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tingkat Nasional</div>
-            <div class="text-3xl font-extrabold text-blue-600 mt-2">{{ $nasionalCount }}</div>
-            <div class="text-[11px] text-slate-400 mt-1">Instansi dalam negeri</div>
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Luar Negeri</div>
+            <div class="text-3xl font-extrabold text-purple-600 mt-2">{{ $luarNegeriCount }}</div>
+            <div class="text-[11px] text-slate-400 mt-1">Mitra internasional</div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tingkat Lokal</div>
-            <div class="text-3xl font-extrabold text-emerald-600 mt-2">{{ $lokalCount }}</div>
-            <div class="text-[11px] text-slate-400 mt-1">Wilayah Malang & Jatim</div>
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Status Aktif</div>
+            <div class="text-3xl font-extrabold text-emerald-600 mt-2">{{ $aktifCount }}</div>
+            <div class="text-[11px] text-slate-400 mt-1">Dokumen sedang berlaku</div>
         </div>
     </div>
 
@@ -130,7 +130,7 @@
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
                     <i class="fa-solid fa-folder-plus text-stikes-600"></i>
-                    <span>Dokumen Kerjasama Terbaru</span>
+                    <span>Dokumen Kerja Sama Terbaru</span>
                 </h3>
                 <a href="{{ route('admin.cooperations.index') }}" class="text-xs font-bold text-stikes-600 hover:underline">Kelola Data</a>
             </div>

@@ -15,7 +15,7 @@ class SettingController extends Controller
         $hideExpiredSetting = SiteSetting::getByKey('hide_expired_public', '0') === '1';
         $footerDescription = SiteSetting::getByKey(
             'footer_description', 
-            'Sistem Informasi Terpadu Pengelolaan Dokumen Kerjasama (MoU, MoA, dan IA) untuk keterbukaan informasi publik dan pemenuhan standar akreditasi institusi & program studi.'
+            'Sistem Informasi Terpadu Pengelolaan Dokumen Kerja Sama (MoU, MoA, dan IA) untuk keterbukaan informasi publik dan pemenuhan standar akreditasi institusi & program studi.'
         );
         $footerAddress = SiteSetting::getByKey(
             'footer_address', 

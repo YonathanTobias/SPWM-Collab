@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Rekapitulasi Dokumen Kerjasama - STIKes Panti Waluya Malang</title>
+    <title>Rekapitulasi Dokumen Kerja Sama - STIKes Panti Waluya Malang</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

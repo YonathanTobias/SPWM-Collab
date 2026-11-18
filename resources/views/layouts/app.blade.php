@@ -71,7 +71,7 @@
                 <a href="{{ route('admin.cooperations.index') }}" 
                    class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.cooperations.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                     <i class="fa-solid fa-folder-open w-4 text-center text-sm"></i>
-                    <span>Kelola Data Kerjasama</span>
+                    <span>Kelola Data Kerja Sama</span>
                 </a>
 
                 @if(in_array(Auth::user()->role, ['super_admin', 'admin']))

@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-clock-rotate-left me-1"></i> Automatic Expiration Monitoring
             </span>
             <h2 class="text-2xl font-extrabold tracking-tight text-white mb-2">
-                Peringatan Dini Masa Berlaku Dokumen Kerjasama
+                Peringatan Dini Masa Berlaku Dokumen Kerja Sama
             </h2>
             <p class="text-xs text-slate-300 font-normal leading-relaxed">
                 Sistem secara otomatis memantau seluruh tanggal berakhir dokumen MoU, MoA, dan IA untuk memudahkan pemantauan dan pembaruan dokumen secara tepat waktu.
@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <h3 class="text-base font-extrabold text-slate-900">Dokumen Membutuhkan Perhatian / Perpanjangan (h-90 Hari)</h3>
-                    <p class="text-xs text-slate-500">Daftar dokumen kerjasama yang akan berakhir dalam kurun waktu 90 hari mendatang.</p>
+                    <p class="text-xs text-slate-500">Daftar dokumen kerja sama yang akan berakhir dalam kurun waktu 90 hari mendatang.</p>
                 </div>
             </div>
             <span class="px-3 py-1 bg-amber-100 text-amber-900 font-extrabold text-xs rounded-xl border border-amber-300">
@@ -91,7 +91,7 @@
                 </div>
                 <div>
                     <h3 class="text-base font-extrabold text-slate-900">Dokumen Telah Kedaluwarsa (Expired)</h3>
-                    <p class="text-xs text-slate-500">Arsip kerjasama yang masa berlakunya telah habis dan belum diperpanjang.</p>
+                    <p class="text-xs text-slate-500">Arsip kerja sama yang masa berlakunya telah habis dan belum diperpanjang.</p>
                 </div>
             </div>
             <span class="px-3 py-1 bg-rose-100 text-rose-900 font-extrabold text-xs rounded-xl border border-rose-300">

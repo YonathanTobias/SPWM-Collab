@@ -21,10 +21,12 @@ class DashboardReportController extends Controller
         $moaCount = Cooperation::where('document_type', 'MoA')->count();
         $iaCount = Cooperation::where('document_type', 'IA')->count();
 
-        // Level Breakdown
-        $lokalCount = Cooperation::where('level', 'Lokal')->count();
-        $nasionalCount = Cooperation::where('level', 'Nasional')->count();
-        $internasionalCount = Cooperation::where('level', 'Internasional')->count();
+        // Level Breakdown (Dalam Negeri & Luar Negeri)
+        $dalamNegeriCount = Cooperation::whereIn('level', ['Dalam Negeri', 'Lokal', 'Nasional'])->count();
+        $luarNegeriCount = Cooperation::whereIn('level', ['Luar Negeri', 'Internasional'])->count();
+        $lokalCount = $dalamNegeriCount;
+        $nasionalCount = $dalamNegeriCount;
+        $internasionalCount = $luarNegeriCount;
 
         // Status Breakdown
         $aktifCount = Cooperation::where('status', 'Aktif')->count();
@@ -48,6 +50,8 @@ class DashboardReportController extends Controller
             'mouCount',
             'moaCount',
             'iaCount',
+            'dalamNegeriCount',
+            'luarNegeriCount',
             'lokalCount',
             'nasionalCount',
             'internasionalCount',
@@ -67,7 +71,7 @@ class DashboardReportController extends Controller
     {
         $cooperations = Cooperation::orderBy('created_at', 'desc')->get();
 
-        $filename = "Rekapitulasi_Kerjasama_STIKes_Panti_Waluya_" . date('Ymd_His') . ".csv";
+        $filename = "Rekapitulasi_Kerja_Sama_STIKes_Panti_Waluya_" . date('Ymd_His') . ".csv";
 
         $headers = [
             'Content-Type' => 'text/csv; charset=UTF-8',
@@ -87,7 +91,7 @@ class DashboardReportController extends Controller
             fputcsv($file, [
                 'No',
                 'Nama Lembaga Mitra',
-                'Tingkat (Lokal/Nasional/Internasional)',
+                'Tingkat (Dalam Negeri / Luar Negeri)',
                 'Jenis Dokumen (MoU/MoA/IA)',
                 'Nomor Dokumen/Surat',
                 'Judul / Ruang Lingkup Kerja Sama',

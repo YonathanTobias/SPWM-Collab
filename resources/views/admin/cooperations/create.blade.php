@@ -72,11 +72,10 @@
 
                 <!-- Level -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Tingkat Wilayah Kerjasama *</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Tingkat Wilayah Kerja Sama *</label>
                     <select name="level" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-stikes-500 focus:bg-white transition-all">
-                        <option value="Lokal" {{ old('level') == 'Lokal' ? 'selected' : '' }}>Lokal (Kabupaten/Kota/Provinsi)</option>
-                        <option value="Nasional" {{ old('level', 'Nasional') == 'Nasional' ? 'selected' : '' }}>Nasional (Tingkat Indonesia)</option>
-                        <option value="Internasional" {{ old('level') == 'Internasional' ? 'selected' : '' }}>Internasional (Luar Negeri)</option>
+                        <option value="Dalam Negeri" {{ old('level', 'Dalam Negeri') == 'Dalam Negeri' ? 'selected' : '' }}>Dalam Negeri (Nasional / Lokal)</option>
+                        <option value="Luar Negeri" {{ old('level') == 'Luar Negeri' ? 'selected' : '' }}>Luar Negeri (Internasional)</option>
                     </select>
                 </div>
 

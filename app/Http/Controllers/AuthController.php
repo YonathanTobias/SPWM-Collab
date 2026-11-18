@@ -41,7 +41,7 @@ class AuthController extends Controller
                 return redirect()->intended(route('dashboard.index'))->with('success', 'Selamat datang kembali, Pimpinan STIKes Panti Waluya Malang.');
             }
 
-            return redirect()->intended(route('admin.cooperations.index'))->with('success', 'Selamat datang di Panel Pengelola Dokumen Kerjasama.');
+            return redirect()->intended(route('admin.cooperations.index'))->with('success', 'Selamat datang di Panel Pengelola Dokumen Kerja Sama.');
         }
 
         return back()->withErrors([

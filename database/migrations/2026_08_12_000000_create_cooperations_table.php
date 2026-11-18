@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('partner_name');
             $table->string('document_number');
             $table->enum('document_type', ['MoU', 'MoA', 'IA']);
-            $table->enum('level', ['Lokal', 'Nasional', 'Internasional']);
+            $table->string('level', 50)->default('Dalam Negeri');
             $table->text('scope');
             $table->date('start_date');
             $table->date('end_date');

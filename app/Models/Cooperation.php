@@ -105,9 +105,11 @@ class Cooperation extends Model
     public function getLevelBadgeClassAttribute(): string
     {
         return match ($this->level) {
+            'Luar Negeri' => 'bg-purple-100 text-purple-900 border-purple-300',
+            'Dalam Negeri' => 'bg-blue-100 text-blue-900 border-blue-300',
+            // Fallbacks
             'Internasional' => 'bg-purple-100 text-purple-900 border-purple-300',
-            'Nasional' => 'bg-blue-100 text-blue-900 border-blue-300',
-            'Lokal' => 'bg-slate-100 text-slate-900 border-slate-300',
+            'Nasional', 'Lokal' => 'bg-blue-100 text-blue-900 border-blue-300',
             default => 'bg-slate-100 text-slate-900 border-slate-300',
         };
     }

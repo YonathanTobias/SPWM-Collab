@@ -52,7 +52,7 @@
             </div>
             <h3 class="text-xl font-extrabold text-slate-900">Manajemen Pengguna & Admin</h3>
             <p class="text-xs text-slate-500 mt-1 max-w-xl leading-relaxed">
-                Kelola hak akses pengelola sistem. <strong>Super Admin</strong> memiliki otoritas penuh terhadap sistem dan akun, sedangkan <strong>Admin</strong> bertanggung jawab atas operasional data kerjasama dan tata kelola navbar.
+                Kelola hak akses pengelola sistem. <strong>Super Admin</strong> memiliki otoritas penuh terhadap sistem dan akun, sedangkan <strong>Admin</strong> bertanggung jawab atas operasional data kerja sama dan tata kelola navbar.
             </p>
         </div>
 
@@ -258,7 +258,7 @@
                     @csrf
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
-                        <input type="text" name="name" required placeholder="Contoh: Admin Bagian Kerjasama" 
+                        <input type="text" name="name" required placeholder="Contoh: Admin Bagian Kerja Sama" 
                                class="w-full px-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-stikes-600 focus:bg-white focus:outline-none">
                     </div>
 
@@ -271,7 +271,7 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Peran (Role) <span class="text-rose-500">*</span></label>
                         <select name="role" required class="w-full px-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-stikes-600 focus:bg-white focus:outline-none">
-                            <option value="admin">Admin (Kelola Data Kerjasama & Menu Navbar)</option>
+                            <option value="admin">Admin (Kelola Data Kerja Sama & Menu Navbar)</option>
                             <option value="super_admin">Super Admin (Otoritas Penuh & Kelola Pengguna)</option>
                         </select>
                         <p class="text-[10px] text-slate-400 mt-1">Hanya berikan peran Super Admin kepada staf yang berwenang mengelola akun sistem.</p>
@@ -342,7 +342,7 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Peran (Role) <span class="text-rose-500">*</span></label>
                         <select name="role" x-model="currentUser.role" required class="w-full px-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-stikes-600 focus:bg-white focus:outline-none">
-                            <option value="admin">Admin (Kelola Data Kerjasama & Menu Navbar)</option>
+                            <option value="admin">Admin (Kelola Data Kerja Sama & Menu Navbar)</option>
                             <option value="super_admin">Super Admin (Otoritas Penuh & Kelola Pengguna)</option>
                         </select>
                     </div>

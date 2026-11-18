@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Kelola Dokumen Kerjasama')
-@section('page-title', 'Pengelolaan Dokumen Kerjasama (MoU / MoA / IA)')
+@section('title', 'Kelola Dokumen Kerja Sama')
+@section('page-title', 'Pengelolaan Dokumen Kerja Sama (MoU / MoA / IA)')
 
 @section('content')
 <div class="space-y-6">

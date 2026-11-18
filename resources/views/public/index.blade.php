@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Katalog Publik Dokumen Kerjasama - STIKes Panti Waluya Malang')
+@section('title', 'Katalog Publik Dokumen Kerja Sama - STIKes Panti Waluya Malang')
 
 @section('content')
 <div x-data="publicCatalog()">
@@ -11,7 +11,7 @@
             <div class="max-w-3xl text-center mx-auto mb-8">
                 <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-stikes-500/10 border border-stikes-500/30 text-stikes-300 text-xs font-bold uppercase tracking-wider mb-3">
                     <i class="fa-solid fa-building-columns"></i>
-                    <span>Katalog Terbuka Kerjasama Publik</span>
+                    <span>Katalog Terbuka Kerja Sama Publik</span>
                 </span>
                 <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight mb-3">
                     Daftar Dokumen Kerja Sama STIKes Panti Waluya Malang
@@ -120,10 +120,9 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Tingkat Wilayah</label>
                         <select name="level" onchange="this.form.submit()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-stikes-500 focus:bg-white transition-all">
-                            <option value="">Semua Tingkat (Lokal/Nasional/Internasional)</option>
-                            <option value="Lokal" {{ request('level') == 'Lokal' ? 'selected' : '' }}>Lokal</option>
-                            <option value="Nasional" {{ request('level') == 'Nasional' ? 'selected' : '' }}>Nasional</option>
-                            <option value="Internasional" {{ request('level') == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+                            <option value="">Semua Tingkat Wilayah</option>
+                            <option value="Dalam Negeri" {{ request('level') == 'Dalam Negeri' ? 'selected' : '' }}>Dalam Negeri</option>
+                            <option value="Luar Negeri" {{ request('level') == 'Luar Negeri' ? 'selected' : '' }}>Luar Negeri</option>
                         </select>
                     </div>
 

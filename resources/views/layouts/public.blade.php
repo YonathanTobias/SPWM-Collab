@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Katalog Kerjasama') - STIKes Panti Waluya Malang</title>
+    <title>@yield('title', 'Katalog Kerja Sama') - STIKes Panti Waluya Malang</title>
     
     <!-- Meta SEO -->
-    <meta name="description" content="Sistem Informasi Manajemen Dokumen Kerjasama STIKes Panti Waluya Malang. Katalog transparan dokumen MoU, MoA, dan IA.">
+    <meta name="description" content="Sistem Informasi Manajemen Dokumen Kerja Sama STIKes Panti Waluya Malang. Katalog transparan dokumen MoU, MoA, dan IA.">
     
     <!-- Custom Favicon -->
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
@@ -214,7 +214,7 @@
                         <span>STIKes Panti Waluya Malang</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                        {{ \App\Models\SiteSetting::getByKey('footer_description', 'Sistem Informasi Terpadu Pengelolaan Dokumen Kerjasama (MoU, MoA, dan IA) untuk keterbukaan informasi publik dan pemenuhan standar akreditasi institusi & program studi.') }}
+                        {{ \App\Models\SiteSetting::getByKey('footer_description', 'Sistem Informasi Terpadu Pengelolaan Dokumen Kerja Sama (MoU, MoA, dan IA) untuk keterbukaan informasi publik dan pemenuhan standar akreditasi institusi & program studi.') }}
                     </p>
                 </div>
 
