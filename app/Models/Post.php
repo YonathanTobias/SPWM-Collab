@@ -39,16 +39,15 @@ class Post extends Model
     }
 
     /**
-     * Get thumbnail URL (or placeholder if null).
+     * Get thumbnail URL (100% self-hosted, adblock-safe).
      */
     public function getThumbnailUrlAttribute(): string
     {
-        if ($this->thumbnail && Storage::disk('public')->exists($this->thumbnail)) {
-            return asset('storage/' . $this->thumbnail);
+        if ($this->id) {
+            return route('public.posts.thumbnail', $this->id);
         }
 
-        // Professional SVG placeholder with campus tone
-        return 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80';
+        return route('public.posts.placeholder');
     }
 
     /**

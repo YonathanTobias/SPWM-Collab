@@ -16,6 +16,8 @@ Route::get('/cooperations/{id}/download', [PublicCatalogController::class, 'down
 
 // Public News & Articles (Berita Publik)
 Route::get('/berita', [\App\Http\Controllers\PublicPostController::class, 'index'])->name('public.posts.index');
+Route::get('/berita/cover/{id}', [\App\Http\Controllers\PublicPostController::class, 'thumbnail'])->name('public.posts.thumbnail');
+Route::get('/berita/placeholder/default', [\App\Http\Controllers\PublicPostController::class, 'placeholder'])->name('public.posts.placeholder');
 Route::get('/berita/{slug}', [\App\Http\Controllers\PublicPostController::class, 'show'])->name('public.posts.show');
 
 // Public Static Pages (Halaman Statis CMS)
