@@ -35,6 +35,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/settings/toggle-hide-expired', [SettingController::class, 'toggleHideExpired'])->name('admin.settings.toggleHideExpired');
     Route::post('/admin/settings/update-footer', [SettingController::class, 'updateFooter'])->name('admin.settings.updateFooter');
     
+    // User & Admin Account Management (Khusus Super Admin)
+    Route::middleware(['super_admin'])->group(function () {
+        Route::get('/admin/users', [\App\Http\Controllers\UserController::class, 'index'])->name('admin.users.index');
+        Route::post('/admin/users', [\App\Http\Controllers\UserController::class, 'store'])->name('admin.users.store');
+        Route::put('/admin/users/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('admin.users.update');
+        Route::delete('/admin/users/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('admin.users.destroy');
+    });
+
     // Navbar Menu Management (Kelola Menu Navbar)
     Route::get('/admin/nav-menus', [\App\Http\Controllers\NavMenuController::class, 'index'])->name('admin.nav_menus.index');
     Route::post('/admin/nav-menus', [\App\Http\Controllers\NavMenuController::class, 'store'])->name('admin.nav_menus.store');

@@ -74,7 +74,7 @@
                     <span>Kelola Data Kerjasama</span>
                 </a>
 
-                @if(Auth::user()->role === 'admin')
+                @if(in_array(Auth::user()->role, ['super_admin', 'admin']))
                     <a href="{{ route('admin.nav_menus.index') }}" 
                        class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.nav_menus.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                         <i class="fa-solid fa-bars-staggered w-4 text-center text-sm"></i>
@@ -84,6 +84,14 @@
                        class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.settings.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                         <i class="fa-solid fa-gear w-4 text-center text-sm"></i>
                         <span>Pengaturan Sistem</span>
+                    </a>
+                @endif
+
+                @if(Auth::user()->role === 'super_admin')
+                    <a href="{{ route('admin.users.index') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.users.*') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                        <i class="fa-solid fa-users-gear w-4 text-center text-sm"></i>
+                        <span>Kelola Akun Admin</span>
                     </a>
                 @endif
 
@@ -100,7 +108,7 @@
                     @endif
                 </a>
 
-                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan')
+                @if(in_array(Auth::user()->role, ['super_admin', 'admin', 'pimpinan']))
                     <div class="pt-6 px-3 pb-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Laporan & Akreditasi</div>
                     <a href="{{ route('dashboard.index') }}" 
                        class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('dashboard.index') ? 'bg-stikes-600 text-white shadow-md shadow-stikes-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
@@ -125,7 +133,7 @@
                         </div>
                         <div class="overflow-hidden">
                             <p class="text-xs font-bold text-white truncate">{{ Auth::user()->name }}</p>
-                            <p class="text-[10px] text-stikes-400 uppercase tracking-wider font-semibold">{{ Auth::user()->role }}</p>
+                            <p class="text-[10px] text-stikes-400 uppercase tracking-wider font-semibold">{{ Auth::user()->role === 'super_admin' ? 'Super Admin' : (Auth::user()->role === 'admin' ? 'Admin' : 'Pimpinan') }}</p>
                         </div>
                     </div>
                 </div>

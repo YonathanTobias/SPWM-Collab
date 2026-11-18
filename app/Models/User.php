@@ -25,14 +25,29 @@ class User extends Authenticatable
         'role',
     ];
 
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'super_admin';
+    }
+
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return in_array($this->role, ['super_admin', 'admin']);
     }
 
     public function isPimpinan(): bool
     {
         return $this->role === 'pimpinan';
+    }
+
+    public function getRoleLabelAttribute(): string
+    {
+        return match ($this->role) {
+            'super_admin' => 'Super Admin',
+            'admin' => 'Admin',
+            'pimpinan' => 'Pimpinan',
+            default => ucfirst($this->role),
+        };
     }
 
     /**

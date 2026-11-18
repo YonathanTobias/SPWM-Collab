@@ -13,7 +13,7 @@ SET time_zone = "+07:00";
 -- ---------------------------------------------------------
 TRUNCATE TABLE `users`;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-('1', 'Super Admin Kerjasama', 'admin@stikespantiwaluya.ac.id', NULL, '$2y$12$blsUpwLLfDstBy2ZLFPF6.znWZTZaHy4x/t5NG6qbRv8Fbyq1O6Ue', 'admin', NULL, '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
+('1', 'Super Admin Kerjasama', 'admin@stikespantiwaluya.ac.id', NULL, '$2y$12$blsUpwLLfDstBy2ZLFPF6.znWZTZaHy4x/t5NG6qbRv8Fbyq1O6Ue', 'super_admin', NULL, '2026-11-16 08:25:46', '2026-11-16 08:25:46'),
 ('2', 'Pimpinan STIKes Panti Waluya', 'pimpinan@stikespantiwaluya.ac.id', NULL, '$2y$12$unrE5XO6t4kh/vZCyxwOK.Al/xj/sJ9CCzWJwxBdXOwv84eu2K24S', 'pimpinan', NULL, '2026-11-16 08:25:46', '2026-11-16 08:25:46');
 
 -- ---------------------------------------------------------
